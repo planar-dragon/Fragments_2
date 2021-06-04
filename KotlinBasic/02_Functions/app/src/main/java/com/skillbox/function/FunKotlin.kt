@@ -11,6 +11,7 @@ fun square(b: Double) = b * b
 fun solveEquation(a: Int, b: Int, c: Int): Double {
     //Для нахождения корней квадратного уравнения необходимо найти дискриминант по формуле:
     val discriminant = square(b.toDouble()) - (4 * a * c)
+
     // Если D>0, то уравнение имеет два корня, которые находятся по формулам:
     val x1 = ((-b) + sqrt(discriminant)) / (2 * a)
     val x2 = ((-b) - sqrt(discriminant)) / (2 * a)
