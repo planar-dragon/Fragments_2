@@ -17,7 +17,7 @@ fun main() {
             positiveNumbers++
             sumEntNumbers += Numbers
 
-        } else println("Вы ввели не отрицательное число или не число!")
+        } else println("Вы ввели отрицательное число или не число!")
     }
     println("Количество положительных чисел = $positiveNumbers")
     println("Сумма всех введенных чисел = $sumEntNumbers")
