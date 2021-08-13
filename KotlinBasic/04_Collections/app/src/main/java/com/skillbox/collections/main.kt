@@ -6,8 +6,9 @@ fun main() {
     val numberFiltr = phoneNumbers(n).filter { it.startsWith("+7") }
 
     println("Номера начинающиеся с +7: $numberFiltr")
-    println("Колличество уникальных введенных номеров: ${numberFiltr.size}")
-    println("Сумма уникальных номеров: ${numberFiltr.sumOf { it.length }}")
+    val unicNumber = numberFiltr.toSet()
+    println("Колличество уникальных введенных номеров: ${unicNumber.size}")
+    println("Сумма уникальных номеров: ${unicNumber.sumOf { it.length }}")
 }
 
 fun phoneNumbers(n: Int): List<String> { // функция которая содержит список типа String?
