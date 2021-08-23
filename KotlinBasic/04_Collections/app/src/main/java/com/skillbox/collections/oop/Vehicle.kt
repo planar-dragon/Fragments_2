@@ -15,11 +15,10 @@ open class Vehicle(
         }
     var fuelCount: Int = 0
         protected set
-    val isStoped: Boolean
-    get() = currentSpeed == 0
-   // constructor(wheelCount: Int, doorCount: Int, bodySize: Triple <Int, Int, Int>): this (wheelCount, doorCount, bodySize.first, bodySize.second, bodySize.third) {
-   // println("Car second init")
-    //}
+
+    open fun getTitle(): String {
+        return "Vehicle"
+    }
 
     open fun accelerate(speed: Int) {
         val needFuel = speed / 2

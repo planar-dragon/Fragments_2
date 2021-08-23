@@ -32,13 +32,12 @@ class Car (
         }
     }
 
-    fun accelerate(speed: Int, force: Boolean) {
-        if (force) {
-            if (isDoorOpen) println("warning, accelerate with opened door")
-            super.accelerate(speed)
-        } else {
-            accelerate(speed)
-        }
-    }
+    override fun getTitle(): String = "Car"
+}
+fun accelerate(speed: Int, force: Boolean) {
 
     }
+
+
+
+
