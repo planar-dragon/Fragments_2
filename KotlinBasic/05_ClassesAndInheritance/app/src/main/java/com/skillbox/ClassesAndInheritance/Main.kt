@@ -18,7 +18,7 @@ fun main(){
 
     val childrensRoom = ChildrensRoom(10.6, "Детская комната") // Экземпляр класса Room "Детская комната", площадь 10,6
     childrensRoom.getDescription()
-    childrensRoom.titleRoom = "Вторая спальня" // Второе назначение комнаты
+    childrensRoom.title = "Вторая спальня" // Второе назначение комнаты
     childrensRoom.getDescription()
 
     val freeRoom = FreeRoom(7.6, "Свободная комната") // Экземпляр класса Room "Обычная комната", площадь 7,6
@@ -32,7 +32,7 @@ fun main(){
         LivingRoom(27.0),
         Kitchen(2.4),
         BathRoom(11.2),
-        ChildrensRoom(10.6, "Детская комната"),
+        ChildrensRoom(10.6),
         FreeRoom(7.6, "Игровая")
     )
 
