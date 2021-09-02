@@ -23,7 +23,7 @@ fun main(){
 
     val freeRoom = FreeRoom(7.6, "Свободная комната") // Экземпляр класса Room "Обычная комната", площадь 7,6
     freeRoom.getDescription()
-    freeRoom.titleRoom = "Игровая" // Второе назначение комнаты
+    freeRoom.title = "Игровая" // Второе назначение комнаты
     freeRoom.getDescription()
 
     val home = listOf( // Список "home", включающий все комнаты
@@ -32,12 +32,14 @@ fun main(){
         LivingRoom(27.0),
         Kitchen(2.4),
         BathRoom(11.2),
-        ChildrensRoom(10.6),
+        ChildrensRoom(10.6, "Вторая спальня"),
         FreeRoom(7.6, "Игровая")
     )
+    println("В доме ${home.size} комнат, общей площадью ${home.sumOf{it.area}}:")
+    //чет не получается посчитать общюю площадь правильно
 
     home.forEach { // метод .forEach, который выведет все элементы списка "home" построчно
-        println("В доме ${it.title} и ее площадь ${it.area} кв.м.") // Шаблон строки вывода, где it.элемент списка
+        it.getDescription()
     }
 
 }
