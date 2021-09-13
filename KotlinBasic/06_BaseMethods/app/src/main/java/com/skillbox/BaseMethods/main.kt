@@ -3,9 +3,9 @@ package com.skillbox.BaseMethods
 fun main() {
 
     // Создаем два объекта класса Person с полностью одинаковыми параметрами(свойствами).
-    val person1 = Person("182","79","Сегизмунд")
+    val person1 = Person(182,79,"Сегизмунд")
 
-    val person2 = Person("182", "79", "Сегизмунд")
+    val person2 = Person(182, 79, "Сегизмунд")
 
     // Объявляем изменяемый set для хранения Person.
     val mutableSetPerson = mutableSetOf( // Добавляем два объекта внутрь.
@@ -20,7 +20,7 @@ fun main() {
     val mutableSetPersonToSet = mutableSetPerson.toSet()
 
     // Создаем и добавляем ещё один объект Person в сет, отличающийся от первых двух.
-    val person3 = Person("180", "81", "Полифемус")
+    val person3 = Person(180, 81,"Полифемус")
     mutableSetPerson.add(person3)
 
     // С помощью forEach выводим описание всех пользователей c их свойствами в консоль.
