@@ -11,12 +11,7 @@ fun main() {
     var CurrencyConverter = conversionToDollar(10.0, 1.0, 50.0)
 
 }
-    // Extension-свойство, расширяющее функционал валюты.
-    // Свойство должно иметь тип Boolean и определять, является ли валюта национальной.
-    val Currency.isNationalCurrency: Boolean
-        get() = this == "National currency" // При создании Экстеншон свойства, необходимо создать геттер
-    private fun Int?.orDefault(defaultValue: Int): Int{
-        return this ?: defaultValue
+
 
     // Extension-метод convertToUSD, конвертирующий любое значение валюты в доллары.
     // Метод должен принимать количество валюты, а возвращать относительное значение в долларах.
