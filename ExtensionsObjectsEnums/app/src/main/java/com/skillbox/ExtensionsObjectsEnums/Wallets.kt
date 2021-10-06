@@ -66,7 +66,7 @@ sealed class Wallets() {
             var moneyInUSD = 0.0
             var nominalOfBills = realWallet.keys
             var numberOfBills = realWallet.values
-
+// тут не понимаю как просчитать и суммировать все деньги с помощью номинала и колличества купюр >>>>>>>>>>>>>>
             Currency.RUBEL ->
                  nominalOfBills * numberOfBills * Currency.conversionToDollar.rubelToUSD,
 
