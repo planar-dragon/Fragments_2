@@ -89,11 +89,8 @@ sealed class Wallets() {
 // Суммируем все деньги в долларах
             var sumOfMoney =
                 sumOfDollars + sumOfRubels * Currency.CurrencyConverter.rubelToUSD + sumOfEuro * Currency.CurrencyConverter.euroToUSD
-
- ///// почему скобка красная?
+            return sumOfMoney // как результат функции выводится sumOfMoney
         }
-
-
     }
 }
 
