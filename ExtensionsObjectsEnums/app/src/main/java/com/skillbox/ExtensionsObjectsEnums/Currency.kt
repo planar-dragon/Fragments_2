@@ -3,7 +3,7 @@ package com.skillbox.ExtensionsObjectsEnums
 //    1. Объявите enum class популярных валют — рубли, доллары, евро.
 
 enum class Currency(
-    val amountOfMoney: Double // свойство класса - колличество денег
+    var amountOfMoney: Double // свойство класса - колличество денег
 ) {
     RUBEL(2500.0), // — рубли
     DOLLAR(50.0), // —  доллары
@@ -43,7 +43,6 @@ enum class Currency(
             return moneyInUSD
 
     }
-    RUBEL.convertToUSD(RUBEL)
 
 
 
