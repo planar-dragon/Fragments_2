@@ -11,7 +11,7 @@ sealed class Wallets() {
 
     abstract fun moneyInUSD()
 
-//    6.1. Виртуальный кошелёк хранит значения валют в виде трёх отдельных переменных типа Double.
+    //    6.1. Виртуальный кошелёк хранит значения валют в виде трёх отдельных переменных типа Double.
 //    Все переменные должны быть закрыты для изменения снаружи
 //    (дальше мы напишем функцию для обработки такого функционала).
 //    наследник класса Wallets - класс VirtualWallets (виртуальный кошелек)
@@ -25,7 +25,7 @@ sealed class Wallets() {
 //    7.1. Для виртуального кошелька метод должен принимать два аргумента: тип валюты и количество добавляемых денег.
 
         fun addMoneyToVirtualWallet(currency: Currency, moneyAdded: Double) {
-            return when (currency) {
+            when (currency) {
                 Currency.RUBEL -> amountOfMoneyRubel += moneyAdded
                 Currency.DOLLAR -> amountOfMoneyDollar += moneyAdded
                 Currency.EURO -> amountOfMoneyEuro += moneyAdded
@@ -35,12 +35,11 @@ sealed class Wallets() {
 
 //    Реализуйте метод moneyInUSD для каждого из наследников.
 
-        override fun moneyInUSD() {
-            Currency.RUBEL to amountOfMoneyRubel * Currency.conversionToDollar.rubelToUSD
-            Currency.DOLLAR to amountOfMoneyDollar * Currency.conversionToDollar.rubelToUSD
-            Currency.EURO to amountOfMoneyEuro * Currency.conversionToDollar.rubelToUSD;
+        override fun moneyInUSD(): Double = amountOfMoneyDollar + Currency.convertToUSD(Rubel){
 
         }
+
+
     }
 //    6.2. Реальный кошелёк хранит каждую валюту в виде приватного свойства MutableMap<Int, Int>,
 //    где в качестве ключа выступает номинал купюры, а в качестве значения — количество купюр.
@@ -132,11 +131,12 @@ sealed class Wallets() {
 //
 //            }
 
-            override fun moneyInUSD() {
-                TODO("Not yet implemented")
-            }
 
-        }
+
+}
+
+
+
 
 
 

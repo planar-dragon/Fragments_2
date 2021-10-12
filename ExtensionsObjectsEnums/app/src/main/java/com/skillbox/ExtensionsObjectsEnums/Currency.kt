@@ -31,7 +31,7 @@ enum class Currency(
         val euroToUSD: Double = 1.17
     }
 
-//     5. Для enum класса валют создайте extension метод convertToUSD, конвертирующий любое значение валюты в доллары.
+//     5. Для enum класса Wallets создайте extension метод convertToUSD, конвертирующий любое значение валюты в доллары.
 //     Метод должен принимать количество валюты, а возвращать относительное значение в долларах.
 
     fun Currency.convertToUSD(): Double {
