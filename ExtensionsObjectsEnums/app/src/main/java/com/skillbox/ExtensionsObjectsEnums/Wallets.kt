@@ -3,13 +3,13 @@ package com.skillbox.ExtensionsObjectsEnums
 //    6. Создайте sealed класс Wallets, который реализует два типа кошельков, виртуальный и реальный:
 
 sealed class Wallets() {
-
+    Currency.convertToUSD()
 //    8. У класса Wallets объявите абстрактный метод moneyInUSD,
 //    возвращающий количество денег в кошельке в пересчёте на доллары США.
 
     abstract var moneyAdded: Double
 
-    abstract fun moneyInUSD()
+    abstract fun moneyInUSD(): Double
 
     //    6.1. Виртуальный кошелёк хранит значения валют в виде трёх отдельных переменных типа Double.
 //    Все переменные должны быть закрыты для изменения снаружи
@@ -35,9 +35,7 @@ sealed class Wallets() {
 
 //    Реализуйте метод moneyInUSD для каждого из наследников.
 
-        override fun moneyInUSD(): Double = amountOfMoneyDollar + Currency.convertToUSD(Rubel){
-
-        }
+        override fun moneyInUSD(): Double = amountOfMoneyDollar + amountOfMoneyRubel * Currency.RUBEL.conversionToDollar
 
 
     }
@@ -67,10 +65,10 @@ sealed class Wallets() {
             var numberOfBills = realWallet.values
 // тут не понимаю как просчитать и суммировать все деньги с помощью номинала и колличества купюр >>>>>>>>>>>>>>
             Currency.RUBEL ->
-                 nominalOfBills * numberOfBills * Currency.conversionToDollar.rubelToUSD,
+                 nominalOfBills * numberOfBills * Currency.CurrencyConverter.rubelToUSD,
 
-            if (this = currency.RUBEL) moneyInUSD = nominalOfBills * numberOfBills * Currency.conversionToDollar.rubelToUSD,
-            if (this = currency.RUBEL) moneyInUSD = nominalOfBills * numberOfBills * Currency.conversionToDollar.rubelToUSD,
+            if (this = currency.RUBEL) moneyInUSD = nominalOfBills * numberOfBills * Currency.CurrencyConverter.rubelToUSD,
+            if (this = currency.RUBEL) moneyInUSD = nominalOfBills * numberOfBills * Currency.CurrencyConverter.rubelToUSD,
             return moneyInUSD
         }
             for ((nominalOfBills,numberOfBills) in realWallet){

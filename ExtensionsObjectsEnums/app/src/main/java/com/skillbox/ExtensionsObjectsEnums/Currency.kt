@@ -25,7 +25,7 @@ enum class Currency(
 //    4. Создайте глобальный объект CurrencyConverter.
 //    Внутри него в качестве статических переменных объявите курсы каждой валюты относительно доллара.
 
-    object conversionToDollar {
+    object CurrencyConverter {
         val rubelToUSD: Double = 0.014
         val dollarToUSD: Double = 1.0
         val euroToUSD: Double = 1.17
@@ -34,15 +34,16 @@ enum class Currency(
 //     5. Для enum класса Wallets создайте extension метод convertToUSD, конвертирующий любое значение валюты в доллары.
 //     Метод должен принимать количество валюты, а возвращать относительное значение в долларах.
 
-    fun Currency.convertToUSD(): Double {
+    fun Currency.convertToUSD(currency: Currency): Double {
         var moneyInUSD = 0.0
 
-        if (this == RUBEL) moneyInUSD = amountOfMoney * conversionToDollar.rubelToUSD
-        if (this == DOLLAR) moneyInUSD = amountOfMoney * conversionToDollar.dollarToUSD
-        if (this == EURO) moneyInUSD = amountOfMoney * conversionToDollar.euroToUSD
+        if (this == RUBEL) moneyInUSD = amountOfMoney * CurrencyConverter.rubelToUSD
+        if (this == DOLLAR) moneyInUSD = amountOfMoney * CurrencyConverter.dollarToUSD
+        if (this == EURO) moneyInUSD = amountOfMoney * CurrencyConverter.euroToUSD
             return moneyInUSD
 
     }
+    RUBEL.convertToUSD(RUBEL)
 
 
 
