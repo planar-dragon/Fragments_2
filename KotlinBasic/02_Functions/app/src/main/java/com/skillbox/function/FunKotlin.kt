@@ -1,4 +1,6 @@
 package com.skillbox.function
+import java.lang.Math.sqrt
+import java.sql.DriverManager.println
 import kotlin.math.sqrt
 
 fun main() {

@@ -1,7 +1,5 @@
 package com.skillbox.ExtensionsObjectsEnums
 
-import java.nio.channels.spi.AbstractSelectionKey
-
 //    6. Создайте sealed класс Wallets, который реализует два типа кошельков, виртуальный и реальный:
 
 sealed class Wallets() {
@@ -9,11 +7,9 @@ sealed class Wallets() {
 //    8. У класса Wallets объявите абстрактный метод moneyInUSD,
 //    возвращающий количество денег в кошельке в пересчёте на доллары США.
 
-    var moneyAdded: Double? = null // переменная добавления денег заполняемая позжу
-
     abstract fun moneyInUSD(): Double
 
-    //    6.1. Виртуальный кошелёк хранит значения валют в виде трёх отдельных переменных типа Double.
+//    6.1. Виртуальный кошелёк хранит значения валют в виде трёх отдельных переменных типа Double.
 //    Все переменные должны быть закрыты для изменения снаружи
 //    (дальше мы напишем функцию для обработки такого функционала).
 //    наследник класса Wallets - класс VirtualWallets (виртуальный кошелек)
@@ -31,18 +27,15 @@ sealed class Wallets() {
                 Currency.RUBEL -> amountOfMoneyRubel += moneyAdded
                 Currency.DOLLAR -> amountOfMoneyDollar += moneyAdded
                 Currency.EURO -> amountOfMoneyEuro += moneyAdded
-
             }
         }
 
 //    Реализуйте метод moneyInUSD для каждого из наследников.
 
         override fun moneyInUSD():
-        Double = amountOfMoneyDollar + amountOfMoneyRubel * Currency.CurrencyConverter.rubelToUSD + amountOfMoneyEuro * Currency.CurrencyConverter.euroToUSD
+                Double = amountOfMoneyDollar + Currency.RUBEL.convertToUSD(amountOfMoneyRubel) + Currency.EURO.convertToUSD(amountOfMoneyEuro)
 
-//      так не получается >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//      Double = amountOfMoneyDollar + Currency.RUBEL.convertToUSD(amountOfMoneyRubel) + Currency.EURO.convertToUSD(amountOfMoneyEuro)
-
+//        Double = amountOfMoneyDollar + amountOfMoneyRubel * Currency.CurrencyConverter.rubelToUSD + amountOfMoneyEuro * Currency.CurrencyConverter.euroToUSD
     }
 //    6.2. Реальный кошелёк хранит каждую валюту в виде приватного свойства MutableMap<Int, Int>,
 //    где в качестве ключа выступает номинал купюры, а в качестве значения — количество купюр.
@@ -62,36 +55,45 @@ sealed class Wallets() {
                 Currency.RUBEL -> amountOfMoneyRubel[nominalOfBills] = numberOfBills // nominalOfBills - номинал купюры
                 Currency.EURO -> amountOfMoneyEuro[nominalOfBills] = numberOfBills // numberOfBills - количество купюр
                 Currency.DOLLAR -> amountOfMoneyDollar[nominalOfBills] = numberOfBills
-
             }
         }
 
 //    Реализуйте метод moneyInUSD для каждого из наследников.
 
         override fun moneyInUSD(): Double {
-            var sumOfRubels: Int = 0
+            var sumOfRubles = 0
 
             amountOfMoneyRubel.forEach { (nominalOfBills, numberOfBills) ->
-                sumOfRubels += nominalOfBills * numberOfBills
+                sumOfRubles += nominalOfBills * numberOfBills
             }
 
-            var sumOfDollars: Int = 0
+            var sumOfDollars = 0
 
             amountOfMoneyEuro.forEach { (nominalOfBills, numberOfBills) ->
                 sumOfDollars += nominalOfBills * numberOfBills
             }
 
-            var sumOfEuro: Int = 0
+            var sumOfEuro = 0
 
             amountOfMoneyDollar.forEach { (nominalOfBills, numberOfBills) ->
                 sumOfEuro += nominalOfBills * numberOfBills
             }
 // Суммируем все деньги в долларах
-            var sumOfMoney =
-                sumOfDollars + sumOfRubels * Currency.CurrencyConverter.rubelToUSD + sumOfEuro * Currency.CurrencyConverter.euroToUSD
-            return sumOfMoney // как результат функции выводится sumOfMoney
+            return sumOfDollars + sumOfRubles * Currency.CurrencyConverter.rubelToUSD + sumOfEuro * Currency.CurrencyConverter.euroToUSD // как результат функции выводится sumOfMoney
         }
     }
+}
+//     5. Для enum класса Wallets создайте extension метод convertToUSD, конвертирующий любое значение валюты в доллары.
+//     Метод должен принимать количество валюты, а возвращать относительное значение в долларах.
+
+fun Currency.convertToUSD(currency: Double): Double {
+    var moneyInUSD = 0.0
+
+    if (this == Currency.RUBEL) moneyInUSD = amountOfMoney * Currency.CurrencyConverter.rubelToUSD
+    if (this == Currency.DOLLAR) moneyInUSD = amountOfMoney * Currency.CurrencyConverter.dollarToUSD
+    if (this == Currency.EURO) moneyInUSD = amountOfMoney * Currency.CurrencyConverter.euroToUSD
+    return moneyInUSD
+
 }
 
 
