@@ -79,7 +79,7 @@ sealed class Wallets() {
                 sumOfEuro += nominalOfBills * numberOfBills
             }
 // Суммируем все деньги в долларах
-            return sumOfDollars + sumOfRubles * Currency.CurrencyConverter.rubelToUSD + sumOfEuro * Currency.CurrencyConverter.euroToUSD // как результат функции выводится sumOfMoney
+            return sumOfDollars + sumOfRubles * Currency.CurrencyConverter.rubelToUSD + sumOfEuro * Currency.CurrencyConverter.euroToUSD// как результат функции выводится sumOfMoney
         }
     }
 }
