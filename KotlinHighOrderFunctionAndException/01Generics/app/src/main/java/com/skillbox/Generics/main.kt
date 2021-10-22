@@ -12,13 +12,13 @@ package com.skillbox.Generics
 
 fun main() {
     val listOfElementsTInt: List<Int> = listOf(1,2,3,4,5) // список элементов типа T: Int (списки целых чисел)
-    val listOfElementsTDouble: List<Double> = listOf(1.0,2.0,3.0,4.0,5.0) // список элементов типа T: Double (списки вещественных чисел)
+    val listOfElementsTDouble: List<Double> = listOf(1.0,2.0,3.0,4.4,5.0) // список элементов типа T: Double (списки вещественных чисел)
 
 
 // Выводим в консоль списки целых чисел и вещественных чисел.
 
-    println(filterlistOfElementsT(listOfElementsTInt))
-    println(filterlistOfElementsT(listOfElementsTDouble))
+    println("Список целых чисел: ${filterlistOfElementsT(listOfElementsTInt)}")
+    println("Список вещественных чисел: ${filterlistOfElementsT(listOfElementsTDouble)}")
 
 }
 // generic-функцию, принимающая на вход список элементов типа T (... tsT(list: List<T>):Li ...)
@@ -26,26 +26,10 @@ fun main() {
 
 fun <T:Number> filterlistOfElementsT(list: List<T>):List<T> {
 
-// Фльтруем список таким образом, чтобы в нём остались только чётные элементы.
+// Фильтруем список таким образом, чтобы в нём остались только чётные элементы.
 
     return list.filter { it.toDouble()%2 == 0.0 } // Возвращаем из функции список, с четными элементами типа T.
 
 }
 
-//Задание 2. Класс очереди, которая хранит объекты любого типа в порядке очереди
-//
-//Напишите класс Queue<T>, который представляет из себя очередь. Есть два метода:
-//enqueue(item: T) — item становится в конец очереди;
-//dequeue(): T? — достаёт из очереди первый объект, если очередь пуста - возвращается null.
 
-//class Queue<T>(defaultValue: T) {
-//
-//}
-//
-//fun enqueue(item: T){
-//    item = newItem
-//}
-//fun dequeue(): T?{
-//    return item
-//
-//}
