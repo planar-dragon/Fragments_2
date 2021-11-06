@@ -17,8 +17,27 @@ fun main() {
 
 // Выводим в консоль списки целых чисел и вещественных чисел.
 
-    println("Список целых чисел: ${filterlistOfElementsT(listOfElementsTInt)}")
-    println("Список вещественных чисел: ${filterlistOfElementsT(listOfElementsTDouble)}")
+    println("Список целых четных чисел: ${filterlistOfElementsT(listOfElementsTInt)}")
+    println("Список четных вещественных чисел: ${filterlistOfElementsT(listOfElementsTDouble)}")
+
+//8.5 Домашняя работа 2
+//3. Используйте вызов функции filter с использованием лямбда-выражения и ссылки на функцию.
+
+// обьединяем два имеющихся списка чисел
+    val listOfElementsTAll = listOfElementsTInt + listOfElementsTDouble
+
+    println("Список элементов двух типов чисел: ${listOfElementsTAll}")
+
+// не понял что происходит в след строке, список который надо отфильтровать отправляем в класс Queue?
+    val filterableQueue = Queue(listOfElementsTAll.toMutableList())
+
+// вызов функции filter с использованием лямбда-выражения
+    val lambdaFilter = filterableQueue.filterMethod { it -> it.toDouble()%2 == 0.0  }
+//println(lambdaFilter.toMutableList())
+
+// вызов функции filter с использованием ссылки на функцию
+    val linkFilter = (filterableQueue::filterMethod)
+//println(linkFilter.toString())
 
 }
 // generic-функцию, принимающая на вход список элементов типа T (... tsT(list: List<T>):Li ...)

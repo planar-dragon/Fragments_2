@@ -14,9 +14,19 @@ package com.skillbox.Generics
 //3. Используйте вызов функции filter с использованием лямбда-выражения и ссылки на функцию.
 
 
-class Queue<T>(defaultValue: T) {
+class Queue<T>(var queueItemT:MutableList<T> = mutableListOf<T>()) {
+// Не понял почему надо было засунуть изменяемую переменную очереди (queue) в конструктор
 
-    var queueItemT = mutableListOf<T>() // Изменяемая переменная очереди (queue)
+//2. Добавьте метод «фильтр», который принимает функцию фильтрации элементов
+// и возвращает новый объект очереди с отфильтрованными элементами.
+
+    fun filterMethod(predicate: (T) -> Boolean): Queue<T> {
+        val newQueue = Queue<T>()// Новый объект очереди
+        for(item in queueItemT) // Итерация по коллекции очереди (queue)
+            if (predicate(item)) newQueue.enqueue(item)
+        println(newQueue)
+        return newQueue
+    }
 
     fun enqueue(item: T) {
         queueItemT.add(item) // добавляем item в конец очереди (переменная queue)
@@ -31,4 +41,6 @@ class Queue<T>(defaultValue: T) {
         else return null // список пустой, тогда возвращаем null
 
     }
+
+
 }
