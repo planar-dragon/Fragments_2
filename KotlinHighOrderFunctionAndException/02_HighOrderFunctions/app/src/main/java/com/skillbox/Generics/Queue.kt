@@ -42,5 +42,9 @@ class Queue<T>(var queueItemT:MutableList<T> = mutableListOf<T>()) {
 
     }
 
+    override fun toString(): String {
+        return "Результат фильтрации $queueItemT"
+    }
+
 
 }

@@ -33,11 +33,11 @@ fun main() {
 
 // вызов функции filter с использованием лямбда-выражения
     val lambdaFilter = filterableQueue.filterMethod { it -> it.toDouble()%2 == 0.0  }
-//println(lambdaFilter.toMutableList())
+println(lambdaFilter.toString())
 
 // вызов функции filter с использованием ссылки на функцию
     val linkFilter = (filterableQueue::filterMethod)
-//println(linkFilter.toString())
+println(linkFilter.toString())
 
 }
 // generic-функцию, принимающая на вход список элементов типа T (... tsT(list: List<T>):Li ...)
