@@ -27,14 +27,12 @@ enum class Currency(
 
     object CurrencyConverter {
         const val rubelToUSD: Double = 0.014
-        const val dollarToUSD: Double = 1.0
+        const val dollarToUSD:
+                Double = 1.0
         const val euroToUSD: Double = 1.17
     }
 
 
-
-
-
-    }
+}
 
 

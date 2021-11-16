@@ -24,7 +24,8 @@ sealed class Wallets() {
 
         fun addMoneyToVirtualWallet(currency: Currency, moneyAdded: Double) {
             when (currency) {
-                Currency.RUBEL -> amountOfMoneyRubel += moneyAdded
+                Currency.RUBEL ->
+                    amountOfMoneyRubel += moneyAdded
                 Currency.DOLLAR -> amountOfMoneyDollar += moneyAdded
                 Currency.EURO -> amountOfMoneyEuro += moneyAdded
             }
@@ -33,7 +34,10 @@ sealed class Wallets() {
 //    Реализуйте метод moneyInUSD для каждого из наследников.
 
         override fun moneyInUSD():
-                Double = amountOfMoneyDollar + Currency.RUBEL.convertToUSD(amountOfMoneyRubel) + Currency.EURO.convertToUSD(amountOfMoneyEuro)
+                Double =
+            amountOfMoneyDollar + Currency.RUBEL.convertToUSD(amountOfMoneyRubel) + Currency.EURO.convertToUSD(
+                amountOfMoneyEuro
+            )
 
 //        Double = amountOfMoneyDollar + amountOfMoneyRubel * Currency.CurrencyConverter.rubelToUSD + amountOfMoneyEuro * Currency.CurrencyConverter.euroToUSD
     }
@@ -52,8 +56,10 @@ sealed class Wallets() {
 
         fun addMoneyToRealWallets(currency: Currency, nominalOfBills: Int, numberOfBills: Int) {
             when (currency) {
-                Currency.RUBEL -> amountOfMoneyRubel[nominalOfBills] = numberOfBills // nominalOfBills - номинал купюры
-                Currency.EURO -> amountOfMoneyEuro[nominalOfBills] = numberOfBills // numberOfBills - количество купюр
+                Currency.RUBEL -> amountOfMoneyRubel[nominalOfBills] =
+                    numberOfBills // nominalOfBills - номинал купюры
+                Currency.EURO -> amountOfMoneyEuro[nominalOfBills] =
+                    numberOfBills // numberOfBills - количество купюр
                 Currency.DOLLAR -> amountOfMoneyDollar[nominalOfBills] = numberOfBills
             }
         }

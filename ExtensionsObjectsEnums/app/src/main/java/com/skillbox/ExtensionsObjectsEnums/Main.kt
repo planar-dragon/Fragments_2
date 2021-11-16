@@ -9,7 +9,8 @@ fun main() {
 // Выведите на экран содержимое кошельков (после конвертации в доллары).
 
     val WalletInHand = Wallets.RealWallets() // кошелек в руках
-    val CardWallet = Wallets.VirtualWallets() // деньги на карте
+    val CardWallet =
+        Wallets.VirtualWallets() // деньги на карте
 
 // Пополняем кошелек в руках:
 

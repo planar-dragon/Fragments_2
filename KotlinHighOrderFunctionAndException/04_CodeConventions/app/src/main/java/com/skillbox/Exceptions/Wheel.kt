@@ -21,19 +21,20 @@ package com.skillbox.Exceptions
 //1. Создайте класс колеса Wheel.
 class Wheel() {
 
-//2. У колеса объявите переменную давления pressure типа double.
+    //2. У колеса объявите переменную давления pressure типа double.
 //Начальное значение задайте равным нулю. Переменная должна быть публична для чтения, но закрыта для записи.
     var pressure: Double = 0.0
         private set
 
-//3. Внутри класса Wheel объявите три класса исключений:
+    //3. Внутри класса Wheel объявите три класса исключений:
     class TooHighPressure : Throwable(message = "Высокое давление!")
 
-    class TooLowPressure: Throwable(message = "Низкое давление!")
+    class TooLowPressure : Throwable(message = "Низкое давление!")
 
-    class IncorrectPressure: Throwable(message= "Неправильное давление, колесо ненакачано или взорвалось!" )
+    class IncorrectPressure :
+        Throwable(message = "Неправильное давление, колесо ненакачано или взорвалось!")
 
-    class NormalPressure: Throwable(message = "Нормальное давление!")
+    class NormalPressure : Throwable(message = "Нормальное давление!")
 
 // Так код длиннее - >>
 //    class TooHighPressure : Throwable(){
@@ -45,15 +46,15 @@ class Wheel() {
 //    class NormalPressure: Throwable() {
 //        override val message: String = "Нормальное давление!"}
 
-// 4. Для класса Wheel реализуйте метод setPressure (value).
-    fun setPressure (value: Double) { // pressure - значение давления (pressure) в атмосферах
+    // 4. Для класса Wheel реализуйте метод setPressure (value).
+    fun setPressure(value: Double) { // pressure - значение давления (pressure) в атмосферах
         if (value < 0 || value > 10) { // Если подаваемое давление будет отрицательным или прeвышать 10 атмосфер
             throw IncorrectPressure() // функция должна вызывать исключение IncorrectPressure
         } else println("Давление в реальных пределах!")
     }
 
-// 5. Добавьте метод check, имитирующий проверку колеса.
-    fun check (pressure: Double) {
+    // 5. Добавьте метод check, имитирующий проверку колеса.
+    fun check(pressure: Double) {
         if (pressure in 2.51..10.0) {
             throw TooHighPressure()
         }
