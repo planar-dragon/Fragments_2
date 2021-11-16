@@ -24,20 +24,21 @@ fun main() {
 //3. Используйте вызов функции filter с использованием лямбда-выражения и ссылки на функцию.
 
 // обьединяем два имеющихся списка чисел
-    val listOfElementsTAll = listOfElementsTInt + listOfElementsTDouble
+    val listOfElementsTAll = (listOfElementsTInt + listOfElementsTDouble).toMutableList()
 
     println("Список элементов двух типов чисел: ${listOfElementsTAll}")
 
 // не понял что происходит в след строке, список который надо отфильтровать отправляем в класс Queue?
-    val filterableQueue = Queue(listOfElementsTAll.toMutableList())
+    val filterableQueue = Queue(listOfElementsTAll)
+
 
 // вызов функции filter с использованием лямбда-выражения
     val lambdaFilter = filterableQueue.filterMethod { it -> it.toDouble()%2 == 0.0  }
-println(lambdaFilter.toString())
+println(lambdaFilter)
 
 // вызов функции filter с использованием ссылки на функцию
     val linkFilter = (filterableQueue::filterMethod)
-println(linkFilter.toString())
+println(linkFilter)
 
 }
 // generic-функцию, принимающая на вход список элементов типа T (... tsT(list: List<T>):Li ...)

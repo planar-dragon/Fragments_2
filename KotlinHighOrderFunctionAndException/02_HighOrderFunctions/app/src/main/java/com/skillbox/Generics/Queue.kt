@@ -24,7 +24,7 @@ class Queue<T>(var queueItemT:MutableList<T> = mutableListOf<T>()) {
         val newQueue = Queue<T>()// Новый объект очереди
         for(item in queueItemT) // Итерация по коллекции очереди (queue)
             if (predicate(item)) newQueue.enqueue(item)
-        println(newQueue)
+//        println(newQueue)
         return newQueue
     }
 
