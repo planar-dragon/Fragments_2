@@ -12,12 +12,12 @@ plugins {
 // 8. * Выведите дерево зависимостей задачи assembleDebug: https://github.com/dorongold/gradle-task-tree. Вывод приложите в файл dependencies.txt в корень проекта.
 
 android {
-    compileSdk 30
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.skillbox.buildandresources"
         minSdk 21
-        targetSdk 30
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
@@ -48,14 +48,13 @@ android {
     productFlavors {
         paid { // имя дименшена пишется толькоо одним словом
             applicationIdSuffix ".paid" // суффикс нужен чтоб можно было установить обе версии
-            versionNameSuffix "PaidVersion1.0"
+            versionNameSuffix "PaidVersion"
             dimension "pricing"
         }
 
         free {
-            minSdkVersion 29
             applicationIdSuffix ".free"
-            versionNameSuffix "FreeVersion1.0"
+            versionNameSuffix "FreeVersion"
             dimension "pricing"
         }
 
@@ -75,7 +74,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
-    testImplementation 'junit:junit:4.+'
+    testImplementation 'junit:junit:'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
