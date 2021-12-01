@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">BuildAndResources</string>
+
+    <string name="main_name_value">BuildAndResources</string>
+
+// строка которая использует множественное значение
+
+    <plurals name="main_quantity_string">
+        <item quantity="one">%1$d значение</item> // one - 1 число
+// %1$d - слот для вставляемой переменной ($d - число, $s - строка)
+
+        <item quantity="few">%1$d значения</item> // few - два числа
+        <item quantity="other">%1$d значений</item> // other - другие случаи
+    </plurals>
+
+
 </resources>
