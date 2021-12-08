@@ -1,4 +1,9 @@
 <resources>
-    <string name="app_name">ViewAndLayout1</string>
-    <string name="TextView">TextView</string>
+    <string name="app_name">Вход в приложение</string>
+    <string name="login_Text">Вход по почте и паролю</string>
+    <string name="input_Email_Address">Введите адрес почты</string>
+    <string name="input_Password">Введите пароль</string>
+    <string name="input">Вход</string>
+    <string name="greetingsText">Вход %1$p0</string>
+    <string name="progress_Bar">Идет загрузка</string>
 </resources>
