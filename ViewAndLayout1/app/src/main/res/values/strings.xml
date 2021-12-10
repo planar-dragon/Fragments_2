@@ -4,6 +4,9 @@
     <string name="input_Email_Address">Введите адрес почты</string>
     <string name="input_Password">Введите пароль</string>
     <string name="input">Вход</string>
-    <string name="greetingsText">Вход %1$p0</string>
-    <string name="progress_Bar">Идет загрузка</string>
+    <string name="greetings_Text">Вход %1$s</string>
+    <string name="toast">Вход в аккаунт</string>
+    <string name="toast_login">Вход выполнен</string>
+    <string name="chekbox_Exemple">Принятия соглашение</string>
+
 </resources>
