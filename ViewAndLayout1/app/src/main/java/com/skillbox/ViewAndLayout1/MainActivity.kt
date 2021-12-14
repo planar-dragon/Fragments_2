@@ -22,87 +22,83 @@ class MainActivity : AppCompatActivity() {
         // Далее вводим ресурс из которого будут браться элементы отрисовки экрана
         setContentView(bindingClass.root)
 
-        // Для отривовки элементов их надо найти в ресурсах по id.
-        // val TextView(элемент экрана) = findViewById(поиск)<TextView>(класс элемента)(R.id.TextView)(путь для поиска в ресурсах)
-//        val textView = findViewById<TextView>(R.id.TextView)
-        // изменение текста на другой
-//        textView.text="new text"
-        // изменение текста на другой, взятый из строки
-//        textView.setText(R.string.TextView)
 
-//        val inputTextEmailAddress = findViewById<EditText>(R.id.textEmailAddress)
-
-//        val inputTextPassword = findViewById<EditText>(R.id.textPassword)
-        // Создаем переменную куда сохраняется техст ввода логин
-//        val inputNameText = findViewById<TextView>(R.id.greetingsText)
+        // создаем обьект следящий за заполнением текста в полях
+//        val loginEmailPassword = object : TextWatcher {
+//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+//
+//            override fun afterTextChanged(p0: Editable?) {}
+//
+//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+////                    if (textEmail.isNotEmpty() && textPass.isNotEmpty() && checkBox.isChecked)
+////                        buttonLogin.isEnabled = true
+//            }
 
 
-        // создаем слушателя для ввода текста
+ // создаем слушателя для ввода текста, который запускаест функцию проверки заполнения полей
 
-        bindingClass.textEmailAddress.addTextChangedListener(object : TextWatcher {
-            var textEmail: Boolean = true
+        val loginEmailPassword = object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun afterTextChanged(p0: Editable?) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                // кнопка включается когда поле ввода заполнено (проверка заполненности, если заполненно то включено)
-                bindingClass.loginButton.isEnabled = p0?.let {it.isNotEmpty()} ?:false
-
+                verificationEmailPasswordChekbox()
             }
         }
-        )
-
-        bindingClass.textPassword.addTextChangedListener(object : TextWatcher {
-            var textPass: Boolean = true
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun afterTextChanged(p0: Editable?) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                // кнопка включается когда поле ввода заполнено (проверка заполненности, если заполненно то включено)
-                bindingClass.loginButton.isEnabled = p0?.let {it.isNotEmpty()} ?:false
-            }
-        }
-        )
 
         bindingClass.chekboxExemple.setOnCheckedChangeListener { checkboxView, check ->
         }
 
-        if (bindingClass.textEmailAddress.text.isNotEmpty() && bindingClass.textPassword.text.isNotEmpty() && bindingClass.chekboxExemple.isChecked) {
-            bindingClass.loginButton.isEnabled = true
-        }
-
-        // создаем слушателя для кнопки:
-        // 1. прогресс бар становится видимым
-        // 2. поля ввода становятся неактивными
-        // 3. чек бокс становятся неактивным
-        // 4. кнопка становятся неактивной
-
         bindingClass.loginButton.setOnClickListener {
-            bindingClass.operationProgress.visibility = View.VISIBLE
-            bindingClass.textEmailAddress.isEnabled = false
-            bindingClass.textPassword.isEnabled = false
-            bindingClass.loginButton.isEnabled = false
-            bindingClass.chekboxExemple.isEnabled = false
-
-            // оповещение об активации кнопки
-            // что происходит = метод создания оповещения. показать текст(контекст, ресурс текста, время показа), отобразить оповещение.
-            Toast.makeText(this, R.string.toast, Toast.LENGTH_SHORT).show()
-
-            Handler().postDelayed({
-                bindingClass.operationProgress.visibility = View.GONE
-                bindingClass.textEmailAddress.isEnabled = true
-                bindingClass.textPassword.isEnabled = true
-                bindingClass.loginButton.isEnabled = true
-                bindingClass.chekboxExemple.isEnabled = true
-                Toast.makeText(this, R.string.toast_login, Toast.LENGTH_SHORT).show()
-            }, 2000)
+            login()
         }
 
     }
-}
+// функция проверки полей, если поля и чекбокс активны, включается кнопка
+    fun verificationEmailPasswordChekbox() {
+
+        bindingClass.loginButton.isEnabled = false
+
+        if (bindingClass.textEmailAddress.toString()
+                .isNotEmpty() && bindingClass.textPassword.toString()
+                .isNotEmpty() && bindingClass.chekboxExemple.isChecked
+        )
+            bindingClass.loginButton.isEnabled = true
+            login()
+    }
+
+    private fun login() {
+        bindingClass.loginButton.isEnabled = false
+        bindingClass.operationProgress.visibility = View.VISIBLE
+        bindingClass.textEmailAddress.isEnabled = false
+        bindingClass.textPassword.isEnabled = false
+        bindingClass.chekboxExemple.isEnabled = false
+
+
+        // оповещение об активации кнопки
+        // что происходит = метод создания оповещения. показать текст(контекст, ресурс текста, время показа), отобразить оповещение.
+        Toast.makeText(this, R.string.toast, Toast.LENGTH_SHORT).show()
+
+        Handler().postDelayed({
+            bindingClass.loginButton.isEnabled = true
+            bindingClass.operationProgress.visibility = View.INVISIBLE
+            bindingClass.textEmailAddress.isEnabled = true
+            bindingClass.textPassword.isEnabled = true
+            bindingClass.chekboxExemple.isEnabled = true
+
+            Toast.makeText(this, R.string.toast_login, Toast.LENGTH_SHORT).show()
+        }, 2000)
+    }
+// При нажатии кнопки должна деактивироваться кнопка,
+    }
+
+
+
+
+
+
+
+
 
 
