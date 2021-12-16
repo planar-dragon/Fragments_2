@@ -7,6 +7,7 @@
     <string name="greetings_Text">Вход %1$s</string>
     <string name="toast">Вход в аккаунт</string>
     <string name="toast_login">Вход выполнен</string>
-    <string name="chekbox_Exemple">Принятия соглашение</string>
+    <string name="chekbox_Exemple">Принятие соглашение</string>
+    <string name="enter_text">Ведите текст</string>
 
 </resources>

@@ -70,13 +70,13 @@
         android:textColor="@color/black"
         android:textSize="20sp" />
 
-    <ProgressBar
-        android:id="@+id/operationProgress"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:visibility="gone" />
+<!--    <ProgressBar-->
+<!--        android:id="@+id/operationProgress"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:visibility="gone" />-->
 
 </LinearLayout>
 
