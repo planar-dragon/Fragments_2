@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.skillbox.ViewAndLayout1.databinding.ActivityDynamicBinding
 import com.skillbox.ViewAndLayout1.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_dynamic.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     // чтоб не использовать поиск по id, создаем переменную которая включает в себя все ссылки из activity_main.xml
@@ -29,10 +28,17 @@ class MainActivity : AppCompatActivity() {
         bindingClassDinamic = ActivityDynamicBinding.inflate(layoutInflater)
         setContentView(bindingClassDinamic.root)
 
-        val viewProgressBar =
-            // inflate - создает view из ресурса разметки (ресурс, контейнер разметки, автоматический вывод)
-            layoutInflater.inflate(R.layout.activity_dynamic, bindingClassDinamic.containerProgressBar, true)
-                // Вью ProgressBar запустится после нажатия кнопки "Вход"
+// оздаем переменную в которую поместим Вью ProgressBar
+// inflate - создает view из ресурса разметки (ресурс, контейнер разметки, автоматический вывод)
+
+        val viewProgressBar = layoutInflater.inflate(
+            R.layout.activity_dynamic,
+            bindingClassDinamic.containerProgressBar,
+            true
+        )
+
+// Вью ProgressBar запустится после нажатия кнопки "Вход"
+
         viewProgressBar.apply {
             bindingClass.loginButton.setOnClickListener {
                 addProgressBar()
@@ -75,7 +81,6 @@ class MainActivity : AppCompatActivity() {
         bindingClass.loginButton.setOnClickListener {
             login()
         }
-
     }
 
 // Функция проверки заполнения полей логина и пароля.
@@ -88,7 +93,7 @@ class MainActivity : AppCompatActivity() {
         else bindingClass.loginButton.isEnabled = false
     }
 
-// Функция запуска ProgressBar, кнопка "Вход", поля логин и пароль, Checkbox деактивируются.
+// Функция запуска кнопки "Вход", поля логин и пароль, Checkbox деактивируются.
 
     private fun login() {
         bindingClass.loginButton.isEnabled = false
@@ -96,9 +101,9 @@ class MainActivity : AppCompatActivity() {
         bindingClass.textPassword.isEnabled = false
         bindingClass.chekboxExemple.isEnabled = false
 
+// оповещение об активации кнопки
+// что происходит = метод создания оповещения. показать текст(контекст, ресурс текста, время показа), отобразить оповещение.
 
-        // оповещение об активации кнопки
-        // что происходит = метод создания оповещения. показать текст(контекст, ресурс текста, время показа), отобразить оповещение.
         Toast.makeText(this, R.string.toast, Toast.LENGTH_SHORT).show()
 
         Handler().postDelayed({
@@ -111,6 +116,9 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.toast_login, Toast.LENGTH_SHORT).show()
         }, 2000)
     }
+
+// Функция запуска ProgressBar
+
     fun addProgressBar() {
         bindingClassDinamic.operationProgress.visibility = View.VISIBLE
 
