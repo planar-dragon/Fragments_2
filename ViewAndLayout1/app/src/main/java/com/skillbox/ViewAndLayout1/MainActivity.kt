@@ -7,14 +7,15 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.skillbox.ViewAndLayout1.databinding.ActivityDynamicBinding
+import com.skillbox.ViewAndLayout1.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_dynamic.*
 import kotlinx.android.synthetic.main.activity_dynamic.operationProgress
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     // чтоб не использовать поиск по id, создаем переменную которая включает в себя все ссылки из activity_main.xml
     // это переменная включающая в себя класс Разметки
-//    lateinit var bindingClass: ActivityMainBinding
+    lateinit var bindingClass: ActivityMainBinding
     lateinit var loginEmail: String
     lateinit var loginPassword: String
 
@@ -23,12 +24,12 @@ class MainActivity : AppCompatActivity() {
     // переназначение функции отрисовки экрана
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        // aктивировать класс Разметки
-//        bindingClass = ActivityMainBinding.inflate(layoutInflater)
-//        // Далее вводим ресурс из которого будут браться элементы отрисовки экрана
-//        setContentView(bindingClass.root)
-////        bindingClassDinamic = ActivityDynamicBinding.inflate(layoutInflater)
-////        setContentView(bindingClassDinamic.root)
+        // aктивировать класс Разметки
+        bindingClass = ActivityMainBinding.inflate(layoutInflater)
+        // Далее вводим ресурс из которого будут браться элементы отрисовки экрана
+        setContentView(bindingClass.root)
+//        bindingClassDinamic = ActivityDynamicBinding.inflate(layoutInflater)
+//        setContentView(bindingClassDinamic.root)
 
 // создаем переменную в которую поместим Вью ProgressBar
 // inflate - создает view из ресурса разметки (ресурс, контейнер разметки, автоматический вывод)
@@ -38,16 +39,17 @@ class MainActivity : AppCompatActivity() {
 //// Вью ProgressBar запустится после нажатия кнопки "Вход"
 
         viewProgressBar.apply {
-            loginButton.setOnClickListener() {
+            bindingClass.loginButton.setOnClickListener() {
+                val bindingClassDinamic = ActivityDynamicBinding.inflate(layoutInflater)
+                setContentView(bindingClassDinamic.root)
                 login()
-
             }
         }
         containerProgressBar.addView(viewProgressBar)
 
 // Слушатели ввода логина и пароля
 
-        textEmailAddress.addTextChangedListener(object : TextWatcher {
+        bindingClass.textEmailAddress.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
@@ -58,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        textPassword.addTextChangedListener(object : TextWatcher {
+        bindingClass.textPassword.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
@@ -71,13 +73,13 @@ class MainActivity : AppCompatActivity() {
 
 // Cлушатель Checkbox, запускающий функцию проверку заполнения полей логина и пароля.
 
-        chekboxExemple.setOnCheckedChangeListener() {checkboxView, isChecked ->
+        bindingClass.chekboxExemple.setOnCheckedChangeListener() {checkboxView, isChecked ->
             verificationEmailPasswordChekbox()
         }
 
 // Cлушатель кнопки "Вход", запускающий функцию login.
 
-//        loginButton.setOnClickListener {
+//        bindingClass.loginButton.setOnClickListener {
 //            login()
 //        }
     }
@@ -85,17 +87,17 @@ class MainActivity : AppCompatActivity() {
 // Функция проверки заполнения полей логина и пароля.
 
     private fun verificationEmailPasswordChekbox() {
-        if (loginEmail.isNotEmpty() && loginPassword.isNotEmpty() && chekboxExemple.isChecked)
-            loginButton.isEnabled = true
+        if (loginEmail.isNotEmpty() && loginPassword.isNotEmpty() && bindingClass.chekboxExemple.isChecked)
+            bindingClass.loginButton.isEnabled = true
     }
 
 // Функция запуска кнопки "Вход", поля логин и пароль, Checkbox деактивируются.
 
     private fun login() {
-        loginButton.isEnabled = false
-        textEmailAddress.isEnabled = false
-        textPassword.isEnabled = false
-        chekboxExemple.isEnabled = false
+        bindingClass.loginButton.isEnabled = false
+        bindingClass.textEmailAddress.isEnabled = false
+        bindingClass.textPassword.isEnabled = false
+        bindingClass.chekboxExemple.isEnabled = false
         operationProgress.visibility = View.VISIBLE
 
 // оповещение об активации кнопки
@@ -104,10 +106,10 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, R.string.toast, Toast.LENGTH_SHORT).show()
 
         Handler().postDelayed({
-            loginButton.isEnabled = true
-            textEmailAddress.isEnabled = true
-            textPassword.isEnabled = true
-            chekboxExemple.isEnabled = true
+            bindingClass.loginButton.isEnabled = true
+            bindingClass.textEmailAddress.isEnabled = true
+            bindingClass.textPassword.isEnabled = true
+            bindingClass.chekboxExemple.isEnabled = true
             operationProgress.visibility = View.INVISIBLE
 
 
