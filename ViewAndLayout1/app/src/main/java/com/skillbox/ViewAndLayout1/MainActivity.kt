@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.skillbox.ViewAndLayout1.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_dynamic.operationProgress
 import kotlinx.android.synthetic.main.activity_main.*
 
 
