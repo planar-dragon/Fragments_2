@@ -1,23 +1,26 @@
 package com.skillbox.ViewAndLayout1
 
+import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.skillbox.ViewAndLayout1.databinding.ActivityDynamicBinding
+import androidx.core.content.ContextCompat
 import com.skillbox.ViewAndLayout1.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_dynamic.*
 import kotlinx.android.synthetic.main.activity_dynamic.operationProgress
+import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
     // чтоб не использовать поиск по id, создаем переменную которая включает в себя все ссылки из activity_main.xml
     // это переменная включающая в себя класс Разметки
     lateinit var bindingClass: ActivityMainBinding
-    lateinit var loginEmail: String
-    lateinit var loginPassword: String
+    var loginEmail: String = ""
+    var loginPassword: String = ""
 
 //    lateinit var bindingClassDinamic: ActivityDynamicBinding
 
@@ -28,24 +31,18 @@ class MainActivity : AppCompatActivity() {
         bindingClass = ActivityMainBinding.inflate(layoutInflater)
         // Далее вводим ресурс из которого будут браться элементы отрисовки экрана
         setContentView(bindingClass.root)
-//        bindingClassDinamic = ActivityDynamicBinding.inflate(layoutInflater)
-//        setContentView(bindingClassDinamic.root)
 
-// создаем переменную в которую поместим Вью ProgressBar
+// Вью ProgressBar запустится после нажатия кнопки "Вход"
+// В переменную записываем контейнер в котором содержится Progress Bar
 // inflate - создает view из ресурса разметки (ресурс, контейнер разметки, автоматический вывод)
-
-        val viewProgressBar = layoutInflater.inflate(R.layout.activity_dynamic,containerProgressBar,true)
-
-//// Вью ProgressBar запустится после нажатия кнопки "Вход"
-
-        viewProgressBar.apply {
-            bindingClass.loginButton.setOnClickListener() {
-                val bindingClassDinamic = ActivityDynamicBinding.inflate(layoutInflater)
-                setContentView(bindingClassDinamic.root)
-                login()
-            }
+        bindingClass.loginButton.setOnClickListener() {
+            val viewProgressBar: View =
+                layoutInflater.inflate(R.layout.activity_main, containerProgressBar, false)
+// Прописываем когда запускается контейнер с Progress Bar
+            viewProgressBar.apply {}
+            login()
+            containerProgressBar.addView(viewProgressBar)
         }
-        containerProgressBar.addView(viewProgressBar)
 
 // Слушатели ввода логина и пароля
 
@@ -73,15 +70,10 @@ class MainActivity : AppCompatActivity() {
 
 // Cлушатель Checkbox, запускающий функцию проверку заполнения полей логина и пароля.
 
-        bindingClass.chekboxExemple.setOnCheckedChangeListener() {checkboxView, isChecked ->
+        bindingClass.chekboxExemple.setOnCheckedChangeListener() { checkboxView, isChecked ->
+            hideSoftKeyboard()
             verificationEmailPasswordChekbox()
         }
-
-// Cлушатель кнопки "Вход", запускающий функцию login.
-
-//        bindingClass.loginButton.setOnClickListener {
-//            login()
-//        }
     }
 
 // Функция проверки заполнения полей логина и пароля.
@@ -117,13 +109,14 @@ class MainActivity : AppCompatActivity() {
         }, 2000)
     }
 
-// Функция запуска ProgressBar
-
-//    fun addProgressBar() {
-//        operationProgress.visibility = View.VISIBLE
-//
-//        Handler().postDelayed({ operationProgress.visibility = View.INVISIBLE }, 2000)
-//    }
+    // функция убирает клавиатуру когда нажат чекбокс
+    fun Activity.hideSoftKeyboard() {
+        currentFocus?.let {
+            val inputMethodManager =
+                ContextCompat.getSystemService(this, InputMethodManager::class.java)!!
+            inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
+        }
+    }
 }
 
 

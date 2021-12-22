@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
 
@@ -18,10 +19,11 @@
         android:layout_gravity="center_horizontal"
         android:background="@color/color_basic"
         android:gravity="start|center_vertical"
-        android:paddingStart="20dp"
+        android:paddingStart="40dp"
         android:text="@string/login_Text"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textColor="#000000"
+        android:textSize="20sp"
+        tools:ignore="RtlSymmetry" />
 
     <EditText
         android:id="@+id/textEmailAddress"
@@ -30,7 +32,9 @@
         android:layout_marginTop="30dp"
         android:hint="@string/input_Email_Address"
         android:inputType="textEmailAddress"
-        android:paddingStart="20dp" />
+        android:minHeight="48dp"
+        android:paddingStart="40dp"
+        tools:ignore="RtlSymmetry" />
 
     <EditText
         android:id="@+id/textPassword"
@@ -39,15 +43,9 @@
         android:layout_marginTop="30dp"
         android:hint="@string/input_Password"
         android:inputType="textPassword"
-        android:paddingStart="20dp" />
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/greetingsText"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_gravity="center_horizontal"-->
-    <!--        android:textColor="@color/black"-->
-    <!--        android:textSize="20sp" />-->
+        android:minHeight="48dp"
+        android:paddingStart="40dp"
+        tools:ignore="RtlSymmetry" />
 
     <CheckBox
         android:id="@+id/chekboxExemple"
@@ -70,13 +68,22 @@
         android:textColor="@color/black"
         android:textSize="20sp" />
 
-    <ProgressBar
-        android:id="@+id/operationProgress"
+    <LinearLayout
+        android:id="@+id/containerProgressBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:visibility="gone" />
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="40dp"
+        android:orientation="vertical">
+
+
+        <ProgressBar
+            android:id="@+id/operationProgress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            tools:visibility="visible" />
+    </LinearLayout>
 
 </LinearLayout>
 
