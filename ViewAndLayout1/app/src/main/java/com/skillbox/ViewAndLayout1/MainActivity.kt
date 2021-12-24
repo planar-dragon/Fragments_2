@@ -43,42 +43,34 @@ class MainActivity : AppCompatActivity() {
             containerProgressBar.addView(viewProgressBar)
         }
 
+// создаем переменную TextWatcher для ввода логина и пароля, в которой идет проверка заполнения
+        val loginEmailPassword = object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun afterTextChanged(p0: Editable?) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                verificationEmailPasswordChekbox()
+            }
+        }
 // Слушатели ввода логина и пароля
+        bindingClass.textEmailAddress.addTextChangedListener(loginEmailPassword)
 
-        bindingClass.textEmailAddress.addTextChangedListener(object : TextWatcher {
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun afterTextChanged(p0: Editable?) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                loginEmail = this.toString()
-            }
-        })
-
-        bindingClass.textPassword.addTextChangedListener(object : TextWatcher {
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun afterTextChanged(p0: Editable?) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                loginPassword = this.toString()
-            }
-        })
+        bindingClass.textPassword.addTextChangedListener(loginEmailPassword)
 
 // Cлушатель Checkbox, запускающий функцию проверку заполнения полей логина и пароля.
 
         bindingClass.chekboxExemple.setOnCheckedChangeListener() { checkboxView, isChecked ->
-            hideSoftKeyboard()
             verificationEmailPasswordChekbox()
+            hideSoftKeyboard()
+
         }
     }
 
 // Функция проверки заполнения полей логина и пароля.
 
     private fun verificationEmailPasswordChekbox() {
-        if (loginEmail.isNotEmpty() && loginPassword.isNotEmpty() && bindingClass.chekboxExemple.isChecked)
+        if (bindingClass.textEmailAddress.text.isNotEmpty() && bindingClass.textPassword.text.isNotEmpty() && bindingClass.chekboxExemple.isChecked)
             bindingClass.loginButton.isEnabled = true
     }
 
