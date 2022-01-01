@@ -19,8 +19,6 @@ class MainActivity : AppCompatActivity() {
     // чтоб не использовать поиск по id, создаем переменную которая включает в себя все ссылки из activity_main.xml
     // это переменная включающая в себя класс Разметки
     lateinit var bindingClass: ActivityMainBinding
-    var loginEmail: String = ""
-    var loginPassword: String = ""
 
 //    lateinit var bindingClassDinamic: ActivityDynamicBinding
 
