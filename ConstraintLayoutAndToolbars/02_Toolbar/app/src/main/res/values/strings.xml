@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Toolbar</string>
-    <string name="string_hading">Заголовок</string>
     <string name="string_bookmark">Заметки</string>
     <string name="action_1">Действие 1</string>
     <string name="action_2">Действие 2</string>
     <string name="action_search">Поиск</string>
+    <string name="search_status">Статус поиска</string>
 
 
 </resources>

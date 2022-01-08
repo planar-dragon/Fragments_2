@@ -6,6 +6,12 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import com.skillbox.toolbar_15_8.databinding.ActivityToolbarBinding
+import androidx.appcompat.widget.Toolbar
+import android.view.View
+import com.google.android.material.appbar.CollapsingToolbarLayout
+
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +38,8 @@ class MainActivity : AppCompatActivity() {
         bindingToolbar = ActivityToolbarBinding.inflate(layoutInflater)
         setContentView(bindingToolbar.root)
         initToolbar()
+
+        bindingToolbar.toolbar.title = "Заголовок"
 
     }
     // функция обработчик нажатия на элемент меню для вывода Toast сообщения
@@ -97,16 +105,18 @@ class MainActivity : AppCompatActivity() {
                 }
                 // поиск при заполнении
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    bookmarks.filter { it.contains(newText ?: "", true) }
+                    bookmarks.filter { it.contains(other = newText ?: "", ignoreCase = true) }
                 // список в одну строку
                         .joinToString()
                         .let {
+                            // установка текста поиска в SearchView
                             bindingToolbar.searchResult.text = it
                         }
                     return true
                 }
 
             })
+
 
     }
 
