@@ -6,5 +6,5 @@ dependencyResolutionManagement {
         jcenter() // Warning: this repository is going to shut down soon
     }
 }
-rootProject.name = "ConstraintLayout_15_4"
+rootProject.name = "ActivityLifecycle_16_12"
 include ':app'

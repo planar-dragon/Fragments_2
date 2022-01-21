@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.skillbox.ViewAndLayout1.BuildConfig
 import com.skillbox.ViewAndLayout1.R
 import com.skillbox.ViewAndLayout1.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     // чтоб не использовать поиск по id, создаем переменную которая включает в себя все ссылки из activity_main.xml
     // это переменная включающая в себя класс Разметки
     lateinit var bindingClass: ActivityMainBinding
+    private val tag = "MainActivity"
 
 //    lateinit var bindingClassDinamic: ActivityDynamicBinding
 
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         bindingClass = ActivityMainBinding.inflate(layoutInflater)
         // Далее вводим ресурс из которого будут браться элементы отрисовки экрана
         setContentView(bindingClass.root)
+        VerboseLoger.v(tag,"Жизненный цикл Activity - onCreate")
 
 // Вью ProgressBar запустится после нажатия кнопки "Вход"
 // В переменную записываем контейнер в котором содержится Progress Bar
@@ -65,6 +69,33 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
+    override fun onStart() {
+        super.onStart()
+        VerboseLoger.v(tag,"Жизненный цикл Activity - onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        VerboseLoger.v(tag,"Жизненный цикл Activity - onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        VerboseLoger.v(tag,"Жизненный цикл Activity - onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        VerboseLoger.v(tag,"Жизненный цикл Activity - onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        VerboseLoger.v(tag,"Жизненный цикл Activity - onDestroy")
+    }
+
+
 
 // Функция проверки заполнения полей логина и пароля.
 
@@ -105,6 +136,15 @@ class MainActivity : AppCompatActivity() {
             val inputMethodManager =
                 ContextCompat.getSystemService(this, InputMethodManager::class.java)!!
             inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
+        }
+    }
+}
+
+private object VerboseLoger {
+    fun v(tag: String, message: String) {
+        if (BuildConfig.DEBUG) {
+// Сообщения должны быть залогированы с разным приоритетом — от verbose до error.
+            Log.e(tag, message)
         }
     }
 }
