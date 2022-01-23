@@ -93,6 +93,10 @@ class MainActivity : AppCompatActivity() {
             bindingClass.textPassword.isEnabled = true
             bindingClass.chekboxExemple.isEnabled = true
             operationProgress.visibility = View.INVISIBLE
+            bindingClass.textEmailAddress.text.clear()
+            bindingClass.textPassword.text.clear()
+
+
 
 
             Toast.makeText(this, R.string.toast_login, Toast.LENGTH_SHORT).show()
