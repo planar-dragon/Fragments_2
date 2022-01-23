@@ -21,9 +21,12 @@ class MainActivity : AppCompatActivity() {
     // чтоб не использовать поиск по id, создаем переменную которая включает в себя все ссылки из activity_main.xml
     // это переменная включающая в себя класс Разметки
     lateinit var bindingClass: ActivityMainBinding
+
     private val tag = "MainActivity"
 
-//    lateinit var bindingClassDinamic: ActivityDynamicBinding
+    // счетчик подготовки
+    private var stateEmailAddress: String = ""
+    private var statePassword: Int = 0
 
     // переназначение функции отрисовки экрана
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +35,14 @@ class MainActivity : AppCompatActivity() {
         bindingClass = ActivityMainBinding.inflate(layoutInflater)
         // Далее вводим ресурс из которого будут браться элементы отрисовки экрана
         setContentView(bindingClass.root)
-        VerboseLoger.v(tag,"Жизненный цикл Activity - onCreate")
+        VerboseLoger.v(tag, "Жизненный цикл Activity - onCreate")
+//  ANR
+        bindingClass.anrButton?.setOnClickListener {
+            Toast.makeText(this, "Через 6 сек будет сообщение ANR", Toast.LENGTH_SHORT).show()
+            Thread.sleep(10000)
+
+        }
+
 
 // Вью ProgressBar запустится после нажатия кнопки "Вход"
 // В переменную записываем контейнер в котором содержится Progress Bar
@@ -70,31 +80,65 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        stateEmailAddress = savedInstanceState.getString(KEY_EMAIL)
+        statePassword = savedInstanceState.getInt(KEY_PASSWORD)
+        recoveryEmailPassword()
+    }
+
+
+    private fun recoveryEmailPassword() {
+        bindingClass.textEmailAddress.text = stateEmailAddress
+        bindingClass.textPassword.text = statePassword.toString()
+
+    }
+
+    // создаем константы куда сохраняется значение
+    companion object {
+        private const val KEY_EMAIL = "EMAIL"
+        private const val KEY_PASSWORD = "PASSWORD"
+    }
+
     override fun onStart() {
         super.onStart()
-        VerboseLoger.v(tag,"Жизненный цикл Activity - onStart")
+        VerboseLoger.v(tag, "Жизненный цикл Activity - onStart, ${hashCode()}")
     }
 
     override fun onResume() {
         super.onResume()
-        VerboseLoger.v(tag,"Жизненный цикл Activity - onResume")
+        VerboseLoger.v(tag, "Жизненный цикл Activity - onResume, ${hashCode()}")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // внутри( константа для сохранения, переменная которую нужно сохранить
+        outState.putStringArrayList(KEY_EMAIL, stateEmailAddress)
+        outState.putInt(KEY_PASSWORD, statePassword)
+    }
+
+    override fun onTopResumedActivityChanged(isTopResumedActivity: Boolean) {
+        super.onTopResumedActivityChanged(isTopResumedActivity)
+        VerboseLoger.v(
+            tag,
+            "Жизненный цикл Activity - onTopResumedActivityChanged $isTopResumedActivity, ${hashCode()}"
+        )
     }
 
     override fun onPause() {
         super.onPause()
-        VerboseLoger.v(tag,"Жизненный цикл Activity - onPause")
+        VerboseLoger.v(tag, "Жизненный цикл Activity - onPause, ${hashCode()}")
     }
 
     override fun onStop() {
         super.onStop()
-        VerboseLoger.v(tag,"Жизненный цикл Activity - onStop")
+        VerboseLoger.v(tag, "Жизненный цикл Activity - onStop, ${hashCode()}")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        VerboseLoger.v(tag,"Жизненный цикл Activity - onDestroy")
+        VerboseLoger.v(tag, "Жизненный цикл Activity - onDestroy, ${hashCode()}")
     }
-
 
 
 // Функция проверки заполнения полей логина и пароля.
