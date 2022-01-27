@@ -1,6 +1,7 @@
 package com.skillbox.Intents_17_11
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -11,10 +12,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.skillbox.ViewAndLayout1.BuildConfig
-import com.skillbox.ViewAndLayout1.R
-import com.skillbox.ViewAndLayout1.databinding.ActivityMainBinding
+import androidx.viewbinding.BuildConfig
+import com.skillbox.Intents_17_11.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.reflect.KClass
 
 
 class MainActivity : AppCompatActivity() {
@@ -46,6 +47,14 @@ class MainActivity : AppCompatActivity() {
 // В переменную записываем контейнер в котором содержится Progress Bar
 // inflate - создает view из ресурса разметки (ресурс, контейнер разметки, автоматический вывод)
         bindingClass.loginButton.setOnClickListener() {
+            //создание джава класса, который используем в создании Intent
+            val activityClass: Class<MainActivitySecond> = MainActivitySecond::class.java
+            val secondActivitiIntent = Intent(
+
+                this, activityClass
+            )
+            // в старт активити передаем созданный интент
+            startActivity(secondActivitiIntent)
 
             val viewProgressBar: View =
                 layoutInflater.inflate(R.layout.activity_main, containerProgressBar, false)
