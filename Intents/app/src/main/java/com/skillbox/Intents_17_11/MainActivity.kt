@@ -11,9 +11,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.skillbox.ViewAndLayout1.BuildConfig
-import com.skillbox.ViewAndLayout1.R
-import com.skillbox.ViewAndLayout1.databinding.ActivityMainBinding
+import com.skillbox.Intents_17_11.BuildConfig
+import com.skillbox.Intents_17_11.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -34,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         bindingClass = ActivityMainBinding.inflate(layoutInflater)
         // Далее вводим ресурс из которого будут браться элементы отрисовки экрана
         setContentView(bindingClass.root)
-        VerboseLoger.v(tag, "Жизненный цикл Activity - onCreate")
+        VerboseLoger.v(tag, "MAIN_INFO Жизненный цикл Activity - onCreate")
 //  ANR
         bindingClass.anrButton?.setOnClickListener {
             Thread.sleep(10000)
@@ -46,6 +45,19 @@ class MainActivity : AppCompatActivity() {
 // В переменную записываем контейнер в котором содержится Progress Bar
 // inflate - создает view из ресурса разметки (ресурс, контейнер разметки, автоматический вывод)
         bindingClass.loginButton.setOnClickListener() {
+
+            val textEmailAddress = textEmailAddress.text.toString()
+            //создание джава класса, который используем в создании Intent
+//            val activityClass: Class<MainActivitySecond> = MainActivitySecond::class.java
+
+//            // создадим переменную которая будет создавать Intent и запускать второй активити
+//            val secondActivitiIntent = Intent(
+//
+//                this, activityClass
+//            ).putExtra(MainActivitySecond.KEY_MESSAGE, textEmailAddress)
+            // в старт активити передаем созданный интент
+//            startActivity(secondActivitiIntent)
+            startActivity(MainActivitySecond.getIntent(this, textEmailAddress))
 
             val viewProgressBar: View =
                 layoutInflater.inflate(R.layout.activity_main, containerProgressBar, false)
@@ -206,7 +218,7 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-    private object VerboseLoger {
+    object VerboseLoger {
         fun v(tag: String, message: String) {
             if (BuildConfig.DEBUG) {
 // Сообщения должны быть залогированы с разным приоритетом — от verbose до error.

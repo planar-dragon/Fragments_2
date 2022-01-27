@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Application Login</string>
+    <string name="login_Text">Login by email and password</string>
+    <string name="input_Email_Address">Enter email address</string>
+    <string name="input_Password">Enter password</string>
+    <string name="input">Entry</string>
+    <string name="greetings_Text">Entry %1$s</string>
+    <string name="toast">Entry</string>
+    <string name="toast_login">Login failed, no way to log in!</string>
+    <string name="chekbox_Exemple">Acceptance agreement</string>
+    <string name="enter_text">Enter text</string>
+    <string name="phone_Dialing">Phone dialing</string>
+    <string name="phone_Number_Verification">Checking the correctness of the entered number</string>
+</resources>
