@@ -11,7 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.skillbox.ViewAndLayout1.BuildConfig
+import androidx.viewbinding.BuildConfig
 import com.skillbox.ViewAndLayout1.R
 import com.skillbox.ViewAndLayout1.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
