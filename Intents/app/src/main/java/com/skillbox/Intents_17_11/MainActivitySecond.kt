@@ -2,11 +2,10 @@ package com.skillbox.Intents_17_11
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_second.*
 
 
@@ -17,20 +16,42 @@ class MainActivitySecond : AppCompatActivity(R.layout.activity_second) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val message= intent.getStringExtra(KEY_MESSAGE)
-        phoneNumberVerification.text = message
+        val message = intent.getStringExtra(KEY_MESSAGE)
+        phoneNumberVerificationView.text = message
         VerboseLoger.v(tag2, "MAIN_INFO Жизненный цикл ActivitySecond - onCreate")
 
         phoneDialing.setOnClickListener() {
-            val actionDial = Intent(Intent.ACTION_DIAL)
-                .apply {  }
 
+// Переменная куда сохраняется введенный номер телефона
+            val phoneNumber = phoneNumberView.text.toString()
 
+// Переменная где сохранили шаблон (Pattern) набора номера телефона
+
+            val patternPhone =
+                Regex(pattern = """^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}${'$'}""")
+
+// Проверка соответствия введенного номера шаблону
+            val isPhoneValid = patternPhone.matches(phoneNumber)
+
+// Если номер некорректный выводится сообщение
+            if (!isPhoneValid) {
+                toast("Введите корректный номер телефона")
+
+// Если все верно запускается окно вызова
+            } else {
+                val phoneIntent = Intent(Intent.ACTION_DIAL).apply {
+                    data = Uri.parse("tel:$phoneNumber")
+                }
+                startActivity(phoneIntent)
             }
-
-
+        }
 
     }
+
+    private fun toast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+    }
+
 
     override fun onStart() {
         super.onStart()
@@ -60,9 +81,10 @@ class MainActivitySecond : AppCompatActivity(R.layout.activity_second) {
     companion object {
         // константу делаем приватной, чтоб никто кроме класса MainActivitySecond
         private const val KEY_MESSAGE = "message key"
-            // функция
+
+        // функция
         fun getIntent(context: Context, message: String?): Intent {
-                // возвращаем полностью сформированный intent для запуска второго активити
+            // возвращаем полностью сформированный intent для запуска второго активити
             return Intent(context, MainActivitySecond::class.java)
                 .putExtra(KEY_MESSAGE, message)
         }

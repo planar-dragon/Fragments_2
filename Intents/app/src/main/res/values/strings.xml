@@ -12,5 +12,6 @@
     <string name="greetings_Text">Вход %1$s</string>
     <string name="phone_Dialing">Набор номера телефона</string>
     <string name="phone_Number_Verification">Проверка корректности введённого номера</string>
+    <string name="phone_number_input">Введите номер телефона</string>
 
 </resources>
