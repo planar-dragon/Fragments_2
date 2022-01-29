@@ -94,6 +94,28 @@
         app:layout_constraintTop_toBottomOf="@+id/textPassword"
         app:layout_constraintVertical_bias="0.6" />
 
+    <Button
+        android:id="@+id/anrButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:text="@string/anr"
+        app:layout_constraintBottom_toTopOf="@+id/containerProgressBar"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline1"
+        app:layout_constraintTop_toBottomOf="@+id/chekboxExemple"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/errorForm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/loginButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="@+id/guideline1"
+        app:layout_constraintTop_toBottomOf="@+id/textPassword" />
+
     <LinearLayout
         android:id="@+id/containerProgressBar"
         android:layout_width="200dp"
@@ -167,27 +189,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="16dp" />
 
-    <Button
-        android:id="@+id/anrButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
-        android:text="ANR"
-        app:layout_constraintBottom_toTopOf="@+id/containerProgressBar"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/chekboxExemple"
-        app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/errorForm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/loginButton"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/textPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

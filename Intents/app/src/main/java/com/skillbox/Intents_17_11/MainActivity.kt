@@ -11,9 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.skillbox.Intents_17_11.BuildConfig
 import com.skillbox.Intents_17_11.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -33,6 +31,8 @@ class MainActivity : AppCompatActivity() {
         bindingClass = ActivityMainBinding.inflate(layoutInflater)
         // Далее вводим ресурс из которого будут браться элементы отрисовки экрана
         setContentView(bindingClass.root)
+
+//        prepareCall(ActivityResultContracts.Dial())
         VerboseLoger.v(tag, "MAIN_INFO Жизненный цикл Activity - onCreate")
 //  ANR
         bindingClass.anrButton?.setOnClickListener {
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 // inflate - создает view из ресурса разметки (ресурс, контейнер разметки, автоматический вывод)
         bindingClass.loginButton.setOnClickListener() {
 
-            val textEmailAddress = textEmailAddress.text.toString()
+            val textEmailAddress = bindingClass.textEmailAddress.text.toString()
             //создание джава класса, который используем в создании Intent
 //            val activityClass: Class<MainActivitySecond> = MainActivitySecond::class.java
 
@@ -58,9 +58,8 @@ class MainActivity : AppCompatActivity() {
             // в старт активити передаем созданный интент
 //            startActivity(secondActivitiIntent)
             startActivity(MainActivitySecond.getIntent(this, textEmailAddress))
-
             val viewProgressBar: View =
-                layoutInflater.inflate(R.layout.activity_main, containerProgressBar, false)
+                layoutInflater.inflate(R.layout.activity_main, bindingClass.containerProgressBar, false)
 // Прописываем когда запускается контейнер с Progress Bar
 //            viewProgressBar.apply {}
             login()
@@ -185,7 +184,7 @@ class MainActivity : AppCompatActivity() {
         bindingClass.textEmailAddress.isEnabled = false
         bindingClass.textPassword.isEnabled = false
         bindingClass.chekboxExemple.isEnabled = false
-        operationProgress.visibility = View.VISIBLE
+        bindingClass.operationProgress.visibility = View.VISIBLE
         VerboseLoger.v(tag, "MAIN_INFO: Вход в никуда совершен!")
 // оповещение об активации кнопки
 // что происходит = метод создания оповещения. показать текст(контекст, ресурс текста, время показа), отобразить оповещение.
@@ -196,7 +195,7 @@ class MainActivity : AppCompatActivity() {
             bindingClass.textEmailAddress.isEnabled = true
             bindingClass.textPassword.isEnabled = true
             bindingClass.chekboxExemple.isEnabled = true
-            operationProgress.visibility = View.INVISIBLE
+            bindingClass.operationProgress.visibility = View.INVISIBLE
 
 
             Toast.makeText(this, R.string.toast_login, Toast.LENGTH_SHORT).show()

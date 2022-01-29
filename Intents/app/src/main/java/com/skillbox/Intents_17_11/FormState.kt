@@ -2,7 +2,7 @@ package com.skillbox.Intents_17_11
 
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 // Для того, чтобы хранить состояние формы, создайте класс.
 
