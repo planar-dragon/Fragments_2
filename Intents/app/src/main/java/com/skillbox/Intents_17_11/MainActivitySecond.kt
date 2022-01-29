@@ -1,5 +1,6 @@
 package com.skillbox.Intents_17_11
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -13,6 +14,7 @@ class MainActivitySecond : AppCompatActivity(R.layout.activity_second) {
 
     private val tag2 = "MainActivitySecond"
 
+    @SuppressLint("QueryPermissionsNeeded")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,7 +44,11 @@ class MainActivitySecond : AppCompatActivity(R.layout.activity_second) {
                 val phoneIntent = Intent(Intent.ACTION_DIAL).apply {
                     data = Uri.parse("tel:$phoneNumber")
                 }
+                if (phoneIntent.resolveActivity(packageManager) != null) {
                 startActivity(phoneIntent)
+                } else {
+                    toast ( "Нет компонента для обработки звонка")
+                }
             }
         }
 
