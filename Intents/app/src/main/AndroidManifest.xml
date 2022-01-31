@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.skillbox.Intents_17_11">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,19 +24,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivitySecond"
-            android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.DIAL" />
-            <data android:scheme="tel"/>
-            <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
-        </activity>
-        <activity android:name=".DialingActivity"
+        <activity
+            android:name=".MainActivitySecond"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.DIAL" />
+                <data android:scheme="tel" />
                 <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".harbActivity"
+            tools:ignore="AppLinkUrlError"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="shikimori.one"
+                    android:pathPrefix="/animes/"/>
             </intent-filter>
         </activity>
     </application>

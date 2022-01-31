@@ -9,6 +9,8 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.skillbox.Intents_17_11.databinding.ActivityMainBinding
@@ -32,7 +34,9 @@ class MainActivity : AppCompatActivity() {
         // Далее вводим ресурс из которого будут браться элементы отрисовки экрана
         setContentView(bindingClass.root)
 
-//        prepareCall(ActivityResultContracts.Dial())
+
+
+
         VerboseLoger.v(tag, "MAIN_INFO Жизненный цикл Activity - onCreate")
 //  ANR
         bindingClass.anrButton?.setOnClickListener {
@@ -40,7 +44,10 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-
+        bindingClass.buttonDeeplink?.setOnClickListener{
+            val deeplink = bindingClass.buttonDeeplink!!.text.toString()
+            startActivity(harbActivity.getIntent2(this, deeplink))
+        }
 // Вью ProgressBar запустится после нажатия кнопки "Вход"
 // В переменную записываем контейнер в котором содержится Progress Bar
 // inflate - создает view из ресурса разметки (ресурс, контейнер разметки, автоматический вывод)

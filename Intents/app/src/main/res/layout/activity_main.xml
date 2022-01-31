@@ -70,7 +70,7 @@
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
         android:text="@string/chekbox_Exemple"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/loginButton"
         app:layout_constraintEnd_toStartOf="@+id/loginButton"
         app:layout_constraintHorizontal_bias="0.5"
@@ -80,13 +80,13 @@
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
         android:enabled="true"
         android:gravity="center_horizontal|center_vertical"
         android:text="@string/input"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/containerProgressBar"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
@@ -97,14 +97,14 @@
     <Button
         android:id="@+id/anrButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginBottom="3dp"
         android:text="@string/anr"
         app:layout_constraintBottom_toTopOf="@+id/containerProgressBar"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintEnd_toStartOf="@+id/buttonDeeplink"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/chekboxExemple"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/chekboxExemple" />
 
     <TextView
         android:id="@+id/errorForm"
@@ -189,6 +189,14 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="16dp" />
 
+    <Button
+        android:id="@+id/buttonDeeplink"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="deeplink"
+        app:layout_constraintBaseline_toBaselineOf="@+id/anrButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toEndOf="@+id/anrButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
