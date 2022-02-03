@@ -37,6 +37,7 @@
             android:name=".deeplinkActivity"
             android:exported="true">
 
+            <tools:validation testUrl="https://shikimori.one/animes/34542-inuyashiki" />
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
