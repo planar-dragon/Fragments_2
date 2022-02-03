@@ -2,48 +2,62 @@ package com.skillbox.Intents_17_11
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.skillbox.Intents_17_11.databinding.ActivityHarbBinding
+import com.skillbox.Intents_17_11.databinding.ActivityDeeplinkBinding
 
-class harbActivity : AppCompatActivity(R.layout.activity_harb) {
+class deeplinkActivity : AppCompatActivity(R.layout.activity_deeplink) {
 
-    lateinit var bindingClassHerb: ActivityHarbBinding
+    lateinit var bindingClassDeeplink: ActivityDeeplinkBinding
 
     private val tag3 = "harbActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         // aктивировать класс Разметки
-        bindingClassHerb = ActivityHarbBinding.inflate(layoutInflater)
+        bindingClassDeeplink = ActivityDeeplinkBinding.inflate(layoutInflater)
+
         // Далее вводим ресурс из которого будут браться элементы отрисовки экрана
-        setContentView(bindingClassHerb.root)
+        setContentView(bindingClassDeeplink.root)
+        VerboseLoger.v(tag3, "MAIN_INFO: Жизненный цикл ActivityDeeplink - onCreate, ${hashCode()}")
+
+
+
+
+
+// Выводит сообщение в открытом активити
         val message = intent.getStringExtra(KEY_DEEPLINK)
-        bindingClassHerb.deeplinkPage.text = message
+        bindingClassDeeplink.deeplinkPage.text = "Вы нажали кнопку $message"
         hanleIntentData()
+
     }
-
-
-    // https://shikimori.one/animes
-
+// https://shikimori.one/animes/34542-inuyashiki
+// ункция обрабатывающая deeplink
     private fun hanleIntentData() {
-        intent.data?.lastPathSegment?.let { herbName ->
-            VerboseLoger.v(tag3, "MAIN_INFO: https://shikimori.one/animes")
-            bindingClassHerb.harbTextView.text = herbName
+        val appLinkIntent = intent
+        val appLinkAction = appLinkIntent.action
+        val appLinkData: Uri? = intent.data
+        if (Intent.ACTION_VIEW == appLinkAction) {
+            appLinkData?.lastPathSegment?.let { deeplinkName ->
+                bindingClassDeeplink.deeplinkTextView.text = deeplinkName
+                    }
+            VerboseLoger.v(tag3, "https://shikimori.one/animes/34542-inuyashiki")
+            }
         }
-    }
 
     companion object {
         // константу делаем приватной, чтоб никто кроме класса MainActivitySecond
-        private const val KEY_DEEPLINK = "message key"
+        private const val KEY_DEEPLINK = "deeplink key"
 
         // константа для сохранения результата
         private const val PHONE_REQUEST_CODE = 321
 
         // функция для создания Intent
         fun getIntent2(context: Context, message: String?): Intent {
-            // возвращаем полностью сформированный intent для запуска второго активити
-            return Intent(context, harbActivity::class.java)
+            // возвращаем полностью сформированный intent для запуска активити deeplinkActivity
+            return Intent(context, deeplinkActivity::class.java)
                 .putExtra(KEY_DEEPLINK, message)
         }
 
