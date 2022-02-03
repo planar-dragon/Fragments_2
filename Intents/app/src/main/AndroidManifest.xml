@@ -33,8 +33,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".harbActivity"
-            tools:ignore="AppLinkUrlError"
+        <activity
+            android:name=".deeplinkActivity"
             android:exported="true">
 
             <intent-filter>
@@ -46,9 +46,10 @@
                 <data
                     android:scheme="https"
                     android:host="shikimori.one"
-                    android:pathPrefix="/animes/"/>
+                    android:pathPrefix="/animes/" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

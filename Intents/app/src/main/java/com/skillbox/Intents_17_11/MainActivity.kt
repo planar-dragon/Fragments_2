@@ -9,8 +9,6 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.skillbox.Intents_17_11.databinding.ActivityMainBinding
@@ -46,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         bindingClass.buttonDeeplink?.setOnClickListener{
             val deeplink = bindingClass.buttonDeeplink!!.text.toString()
-            startActivity(harbActivity.getIntent2(this, deeplink))
+            startActivity(deeplinkActivity.getIntent2(this, deeplink))
         }
 // Вью ProgressBar запустится после нажатия кнопки "Вход"
 // В переменную записываем контейнер в котором содержится Progress Bar
@@ -73,6 +71,7 @@ class MainActivity : AppCompatActivity() {
             bindingClass.containerProgressBar.addView(viewProgressBar)
             bindingClass.containerProgressBar.removeView(viewProgressBar)
             validation(stateEmailPassword!!.message)
+            finish()
 
         }
 
@@ -98,6 +97,7 @@ class MainActivity : AppCompatActivity() {
             hideSoftKeyboard()
 
         }
+
     }
 
     // создаем константы куда сохраняется значение

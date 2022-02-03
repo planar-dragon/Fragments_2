@@ -15,13 +15,13 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/harbTextView"
+        android:id="@+id/deeplinkTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:gravity="center_horizontal"
         android:textSize="20sp"
-        tools:text="harb test" />
+        tools:text="deeplink test" />
 
 </LinearLayout>
