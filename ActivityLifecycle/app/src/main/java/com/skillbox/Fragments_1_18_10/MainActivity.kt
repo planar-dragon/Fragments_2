@@ -1,4 +1,4 @@
-package com.skillbox.ConstraintLayout_15_4
+package com.skillbox.Fragments_1_18_10
 
 import android.app.Activity
 import android.os.Bundle
@@ -11,21 +11,19 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.skillbox.ViewAndLayout1.BuildConfig
-import com.skillbox.ViewAndLayout1.R
-import com.skillbox.ViewAndLayout1.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.viewbinding.BuildConfig
+import com.skillbox.Fragments_1_18_10.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
     // чтоб не использовать поиск по id, создаем переменную которая включает в себя все ссылки из activity_main.xml
     // это переменная включающая в себя класс Разметки
-    lateinit var bindingClass: ActivityMainBinding
+    private lateinit var bindingClass: ActivityMainBinding
 
     private val tag = "MainActivity"
 
     // Переменная в которую сохраняется формат ошибки
-    var stateEmailPassword: FormState? = FormState(false, "Пароль и логин не введены")
+    private var stateEmailPassword: FormState? = FormState(false, "Пароль и логин не введены")
 
     // переназначение функции отрисовки экрана
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,10 +43,10 @@ class MainActivity : AppCompatActivity() {
 // Вью ProgressBar запустится после нажатия кнопки "Вход"
 // В переменную записываем контейнер в котором содержится Progress Bar
 // inflate - создает view из ресурса разметки (ресурс, контейнер разметки, автоматический вывод)
-        bindingClass.loginButton.setOnClickListener() {
+        bindingClass.loginButton.setOnClickListener {
 
             val viewProgressBar: View =
-                layoutInflater.inflate(R.layout.activity_main, containerProgressBar, false)
+                layoutInflater.inflate(R.layout.activity_main, bindingClass.containerProgressBar, false)
 // Прописываем когда запускается контейнер с Progress Bar
 //            viewProgressBar.apply {}
             login()
@@ -75,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
 // Cлушатель Checkbox, запускающий функцию проверку заполнения полей логина и пароля.
 
-        bindingClass.chekboxExemple.setOnCheckedChangeListener() { checkboxView, isChecked ->
+        bindingClass.chekboxExemple.setOnCheckedChangeListener { checkboxView, isChecked ->
             verificationEmailPasswordChekbox()
             hideSoftKeyboard()
 
@@ -173,7 +171,7 @@ class MainActivity : AppCompatActivity() {
         bindingClass.textEmailAddress.isEnabled = false
         bindingClass.textPassword.isEnabled = false
         bindingClass.chekboxExemple.isEnabled = false
-        operationProgress.visibility = View.VISIBLE
+        bindingClass.operationProgress.visibility = View.VISIBLE
         VerboseLoger.v(tag, "MAIN_INFO: Вход в никуда совершен!")
 // оповещение об активации кнопки
 // что происходит = метод создания оповещения. показать текст(контекст, ресурс текста, время показа), отобразить оповещение.
@@ -184,7 +182,7 @@ class MainActivity : AppCompatActivity() {
             bindingClass.textEmailAddress.isEnabled = true
             bindingClass.textPassword.isEnabled = true
             bindingClass.chekboxExemple.isEnabled = true
-            operationProgress.visibility = View.INVISIBLE
+            bindingClass.operationProgress.visibility = View.INVISIBLE
 
 
             Toast.makeText(this, R.string.toast_login, Toast.LENGTH_SHORT).show()
@@ -197,7 +195,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // функция убирает клавиатуру когда нажат чекбокс
-    fun Activity.hideSoftKeyboard() {
+    private fun Activity.hideSoftKeyboard() {
         currentFocus?.let {
             val inputMethodManager =
                 ContextCompat.getSystemService(this, InputMethodManager::class.java)!!

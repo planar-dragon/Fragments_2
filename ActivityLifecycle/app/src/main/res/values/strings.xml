@@ -9,5 +9,6 @@
     <string name="toast_login">Вход не выполнен, входить не куда!</string>
     <string name="chekbox_Exemple">Принятие соглашение</string>
     <string name="enter_text">Ведите текст</string>
+    <string name="anr">ANR</string>
 
 </resources>

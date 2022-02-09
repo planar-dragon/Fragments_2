@@ -1,4 +1,4 @@
-package com.skillbox.ConstraintLayout_15_4
+package com.skillbox.Fragments_1_18_10
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
