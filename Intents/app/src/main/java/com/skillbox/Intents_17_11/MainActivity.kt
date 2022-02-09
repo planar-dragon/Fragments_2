@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.viewbinding.BuildConfig
 import com.skillbox.Intents_17_11.databinding.ActivityMainBinding
 
 
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     // это переменная включающая в себя класс Разметки
     lateinit var bindingClass: ActivityMainBinding
 
-    private val tag = "MainActivity"
+    val tag = "MainActivity"
 
     // Переменная в которую сохраняется формат ошибки
     var stateEmailPassword: FormState? = FormState(false, "Пароль и логин не введены")
@@ -37,21 +38,21 @@ class MainActivity : AppCompatActivity() {
 
         VerboseLoger.v(tag, "MAIN_INFO Жизненный цикл Activity - onCreate")
 //  ANR
-        bindingClass.anrButton?.setOnClickListener {
-            Thread.sleep(10000)
-
-        }
-
-        bindingClass.buttonDeeplink?.setOnClickListener{
-            val deeplink = bindingClass.buttonDeeplink!!.text.toString()
-            startActivity(deeplinkActivity.getIntent2(this, deeplink))
-        }
+//        bindingClass.anrButton?.setOnClickListener {
+//            Thread.sleep(10000)
+//
+//        }
+//
+//        bindingClass.buttonDeeplink?.setOnClickListener{
+//            val deeplink = bindingClass.buttonDeeplink!!.text.toString()
+//            startActivity(deeplinkActivity.getIntent2(this, deeplink))
+//        }
 // Вью ProgressBar запустится после нажатия кнопки "Вход"
 // В переменную записываем контейнер в котором содержится Progress Bar
 // inflate - создает view из ресурса разметки (ресурс, контейнер разметки, автоматический вывод)
-        bindingClass.loginButton.setOnClickListener() {
+        bindingClass.loginButton?.setOnClickListener() {
 
-            val textEmailAddress = bindingClass.textEmailAddress.text.toString()
+            val textEmailAddress = bindingClass.textEmailAddress?.text.toString()
             //создание джава класса, который используем в создании Intent
 //            val activityClass: Class<MainActivitySecond> = MainActivitySecond::class.java
 
@@ -68,8 +69,8 @@ class MainActivity : AppCompatActivity() {
 // Прописываем когда запускается контейнер с Progress Bar
 //            viewProgressBar.apply {}
             login()
-            bindingClass.containerProgressBar.addView(viewProgressBar)
-            bindingClass.containerProgressBar.removeView(viewProgressBar)
+            bindingClass.containerProgressBar?.addView(viewProgressBar)
+            bindingClass.containerProgressBar?.removeView(viewProgressBar)
             validation(stateEmailPassword!!.message)
             finish()
 
@@ -86,13 +87,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 // Слушатели ввода логина и пароля
-        bindingClass.textEmailAddress.addTextChangedListener(loginEmailPassword)
+        bindingClass.textEmailAddress?.addTextChangedListener(loginEmailPassword)
 
-        bindingClass.textPassword.addTextChangedListener(loginEmailPassword)
+        bindingClass.textPassword?.addTextChangedListener(loginEmailPassword)
 
 // Cлушатель Checkbox, запускающий функцию проверку заполнения полей логина и пароля.
 
-        bindingClass.chekboxExemple.setOnCheckedChangeListener() { checkboxView, isChecked ->
+        bindingClass.chekboxExemple?.setOnCheckedChangeListener() { checkboxView, isChecked ->
             verificationEmailPasswordChekbox()
             hideSoftKeyboard()
 
@@ -163,23 +164,23 @@ class MainActivity : AppCompatActivity() {
 
     private fun verificationEmailPasswordChekbox() {
         when {
-            bindingClass.textEmailAddress.text.isEmpty() && bindingClass.textPassword.text.isEmpty()
+            bindingClass.textEmailAddress!!.text.isEmpty() && bindingClass.textPassword!!.text.isEmpty()
             -> {stateEmailPassword = FormState(false, "Не введен логин и пароль!")
                 VerboseLoger.v(tag, "MAIN_INFO: Не введен логин и пароль!")}
 
-            bindingClass.textEmailAddress.text.isEmpty()
+            bindingClass.textEmailAddress!!.text.isEmpty()
             -> {stateEmailPassword = FormState(false, "Не введен логин!")
                 VerboseLoger.v(tag, "MAIN_INFO: Не введен логин!")}
 
-            bindingClass.textPassword.text.isEmpty()
+            bindingClass.textPassword!!.text.isEmpty()
             -> {stateEmailPassword = FormState(false, "Не введен пароль!")
             VerboseLoger.v(tag, "MAIN_INFO: Не введен пароль!")}
 
-            !bindingClass.chekboxExemple.isChecked
+            !bindingClass.chekboxExemple?.isChecked!!
             -> {stateEmailPassword = FormState(false, "Примите соглашение!")
             VerboseLoger.v(tag, "MAIN_INFO: Примите соглашение!")}
 
-            bindingClass.textEmailAddress.text.isNotEmpty() && bindingClass.textPassword.text.isNotEmpty() && bindingClass.chekboxExemple.isChecked
+            bindingClass.textEmailAddress!!.text.isNotEmpty() && bindingClass.textPassword!!.text.isNotEmpty() && bindingClass.chekboxExemple!!.isChecked
             -> {stateEmailPassword = FormState(true, "Валидация прошла успешно!")
                 VerboseLoger.v(tag, "MAIN_INFO: Валидация прошла успешно!")}
             }
@@ -188,10 +189,10 @@ class MainActivity : AppCompatActivity() {
 // Функция запуска кнопки "Вход", поля логин и пароль, Checkbox деактивируются.
 
     private fun login() {
-        bindingClass.textEmailAddress.isEnabled = false
-        bindingClass.textPassword.isEnabled = false
-        bindingClass.chekboxExemple.isEnabled = false
-        bindingClass.operationProgress.visibility = View.VISIBLE
+        bindingClass.textEmailAddress!!.isEnabled = false
+        bindingClass.textPassword!!.isEnabled = false
+        bindingClass.chekboxExemple!!.isEnabled = false
+        bindingClass.operationProgress!!.visibility = View.VISIBLE
         VerboseLoger.v(tag, "MAIN_INFO: Вход в никуда совершен!")
 // оповещение об активации кнопки
 // что происходит = метод создания оповещения. показать текст(контекст, ресурс текста, время показа), отобразить оповещение.
@@ -199,10 +200,10 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, R.string.toast, Toast.LENGTH_SHORT).show()
 
         Handler().postDelayed({
-            bindingClass.textEmailAddress.isEnabled = true
-            bindingClass.textPassword.isEnabled = true
-            bindingClass.chekboxExemple.isEnabled = true
-            bindingClass.operationProgress.visibility = View.INVISIBLE
+            bindingClass.textEmailAddress!!.isEnabled = true
+            bindingClass.textPassword!!.isEnabled = true
+            bindingClass.chekboxExemple!!.isEnabled = true
+            bindingClass.operationProgress!!.visibility = View.INVISIBLE
 
 
             Toast.makeText(this, R.string.toast_login, Toast.LENGTH_SHORT).show()
