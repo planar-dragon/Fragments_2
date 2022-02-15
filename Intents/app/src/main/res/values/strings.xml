@@ -13,6 +13,8 @@
     <string name="phone_Dialing">Набор номера телефона</string>
     <string name="phone_Number_Verification">Проверка корректности введённого номера</string>
     <string name="phone_number_input">Введите номер телефона</string>
-    <string name="anr">ANR</string>
+    <string name="anr" translatable="false">ANR</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

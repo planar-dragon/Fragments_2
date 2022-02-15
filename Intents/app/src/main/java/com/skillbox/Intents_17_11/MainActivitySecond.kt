@@ -2,7 +2,6 @@ package com.skillbox.Intents_17_11
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -44,7 +43,7 @@ class MainActivitySecond : AppCompatActivity(R.layout.activity_second) {
         // Далее вводим ресурс из которого будут браться элементы отрисовки экрана
         setContentView(bindingClassSecond.root)
 
-        val message = intent.getStringExtra(KEY_MESSAGE)
+        val message = intent.getStringExtra(Constants.KEY_MESSAGE)
         bindingClassSecond.phoneNumberVerificationView.text = message
 
         VerboseLoger.v(tag2, "MAIN_INFO: Жизненный цикл ActivitySecond - onCreate")
@@ -107,24 +106,6 @@ class MainActivitySecond : AppCompatActivity(R.layout.activity_second) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 
-// колбэк (код который сохраняется при запуске активити, проверка было ли действие произведено успешно, данные в интенте data
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        // сравение requestCode (Для того, чтобы при получении результата понять, на какой запрос этот результат доставлен)
-//        if (requestCode == PHONE_REQUEST_CODE) {
-//            // поверка успешности запуска (Для того, чтобы при получении результата понять, успешна ли прошла операция или нет)
-//            if (resultCode == Activity.RESULT_OK) {
-//                toast("Звонок запущен!")
-//                VerboseLoger.v(tag2, "MAIN_INFO:ActivitySecond - Звонок запущен!, ${hashCode()}")
-//            } else {
-//                toast("Звонок отменен!")
-//                VerboseLoger.v(tag2, "MAIN_INFO: ActivitySecond - Звонок отменен!, ${hashCode()}")
-//            }
-//
-//        } else {
-//            super.onActivityResult(requestCode, resultCode, data)
-//        }
-//    }
 
     override fun onStart() {
         super.onStart()
@@ -152,18 +133,13 @@ class MainActivitySecond : AppCompatActivity(R.layout.activity_second) {
     }
 
     companion object {
-        // константу делаем приватной, чтоб никто кроме класса MainActivitySecond
-        private const val KEY_MESSAGE = "message key"
-
-        // константа для сохранения результата onActivityResult
-        // private const val PHONE_REQUEST_CODE = 321
 
 // функция для создания Intent
-        fun getIntent(context: Context, message: String?): Intent {
+        fun getIntent(context: MainActivity, message: String?): Intent {
 
 // возвращаем полностью сформированный intent для запуска второго активити
             return Intent(context, MainActivitySecond::class.java)
-                .putExtra(KEY_MESSAGE, message)
+                .putExtra(Constants.KEY_MESSAGE, message)
         }
     }
 }

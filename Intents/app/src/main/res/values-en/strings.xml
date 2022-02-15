@@ -12,4 +12,5 @@
     <string name="enter_text">Enter text</string>
     <string name="phone_Dialing">Phone dialing</string>
     <string name="phone_Number_Verification">Checking the correctness of the entered number</string>
+    <string name="phone_number_input" translatable="false">"Enter phone number "</string>
 </resources>
