@@ -26,6 +26,7 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
         Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: onCreateView")
 
         return bindingLoginFragment.root
+
     }
 
     override fun onAttach(context: Context) {
@@ -37,6 +38,7 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: onViewCreated")
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -46,9 +48,9 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
 
         bindingLoginFragment.loginButton.setOnClickListener() {
 
-            val textEmailAddress = bindingLoginFragment.textEmailAddress.text.toString()
-
-            startActivity(MainActivitySecond.getIntent(this, textEmailAddress))
+//            val textEmailAddress = bindingLoginFragment.textEmailAddress.text.toString()
+//
+//            startActivity(MainActivitySecond.getIntent(this, textEmailAddress))
             val viewProgressBar: View =
                 layoutInflater.inflate(
                     R.layout.activity_main,
@@ -61,6 +63,7 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
             bindingLoginFragment.containerProgressBar.removeView(viewProgressBar)
 //                validation(stateEmailPassword!!.message)
 //            finish()
+            childFragmentManager.beginTransaction().replace(R.id.fragmentView, MainFragment.newMainFragment()).commit()
 
         }
 
