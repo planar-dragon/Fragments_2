@@ -97,10 +97,10 @@ class MainActivity : AppCompatActivity() {
 ////        private const val KEY_EMAIL_PASS = "EMAIL_PASSWORD"
     }
 
-//    override fun onStart() {
-//        super.onStart()
-//        VerboseLoger.v(tag, "MAIN_INFO: Жизненный цикл Activity - onStart, ${hashCode()}")
-//    }
+    override fun onStart() {
+        super.onStart()
+        VerboseLoger.v(tag, "MAIN_INFO: Жизненный цикл Activity - onStart, ${hashCode()}")
+    }
 
     override fun onResume() {
         super.onResume()
