@@ -34,6 +34,7 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
 
         Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: onAttach")
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -61,9 +62,10 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
             login()
             bindingLoginFragment.containerProgressBar.addView(viewProgressBar)
             bindingLoginFragment.containerProgressBar.removeView(viewProgressBar)
-//                validation(stateEmailPassword!!.message)
+            validation(stateEmailPassword!!.message)
 //            finish()
-            childFragmentManager.beginTransaction().replace(R.id.fragmentView, MainFragment.newMainFragment()).commit()
+            childFragmentManager.beginTransaction()
+                .replace(R.id.fragmentView, MainFragment.newMainFragment()).commit()
 
         }
 

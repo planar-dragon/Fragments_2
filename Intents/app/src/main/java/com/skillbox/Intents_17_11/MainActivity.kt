@@ -1,22 +1,14 @@
 package com.skillbox.Intents_17_11
 
 import android.os.Bundle
-import android.os.Handler
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.skillbox.Intents_17_11.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
-    // чтоб не использовать поиск по id, создаем переменную которая включает в себя все ссылки из activity_main.xml
-    // это переменная включающая в себя класс Разметки
-    lateinit var bindingClass: ActivityMainBinding
+
+    private lateinit var bindingClass: ActivityMainBinding
 
     val tag = "MainActivity"
 
@@ -26,9 +18,9 @@ class MainActivity : AppCompatActivity() {
     // переназначение функции отрисовки экрана
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // aктивировать класс Разметки
+
         bindingClass = ActivityMainBinding.inflate(layoutInflater)
-        // Далее вводим ресурс из которого будут браться элементы отрисовки экрана
+
         setContentView(bindingClass.root)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentView, LoginFragment.newLoginFragment()).commit()
