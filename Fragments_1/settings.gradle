@@ -3,8 +3,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
+         // Warning: this repository is going to shut down soon
     }
 }
-rootProject.name = "ActivityLifecycle_16_12"
+rootProject.name = "Fragments_1_18_10"
 include ':app'

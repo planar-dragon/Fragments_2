@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.skillbox.ViewAndLayout1">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.skillbox.Fragments_1_18_10">
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -8,16 +11,46 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ViewAndLayout1">
+        android:theme="@style/Theme.Fragments_1_18_10"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
+
         <activity
-            android:name="com.skillbox.ConstraintLayout_15_4.MainActivity"
-            android:exported="true" >
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivitySecond"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.DIAL" />
+                <data android:scheme="tel" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".deeplinkActivity"
+            android:exported="true">
+
+            <tools:validation testUrl="https://shikimori.one/animes/34542-inuyashiki" />
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="shikimori.one"
+                    android:pathPrefix="/animes/" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
