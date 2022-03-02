@@ -21,7 +21,7 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val bindingLoginFragment = LoginFragmentBinding.inflate(inflater)
         Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: onCreateView")
 
@@ -39,14 +39,6 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: onViewCreated")
-
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: onActivityCreated")
-
         bindingLoginFragment.loginButton.setOnClickListener() {
 
 //            val textEmailAddress = bindingLoginFragment.textEmailAddress.text.toString()
@@ -91,6 +83,15 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
 //            hideSoftKeyboard()
 
         }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: onActivityCreated")
+
+
+
     }
 
 // Функция запуска кнопки "Вход", поля логин и пароль, Checkbox деактивируются.
