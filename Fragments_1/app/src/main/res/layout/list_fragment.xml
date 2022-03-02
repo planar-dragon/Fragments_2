@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/buttonList1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Элемент списка 1"
+        app:iconPadding="0dp" />
+
+    <Button
+        android:id="@+id/buttonList2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Элемент списка 2" />
+
+    <Button
+        android:id="@+id/buttonList3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Элемент списка 3" />
+
+    <Button
+        android:id="@+id/buttonList4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Элемент списка 4" />
+
+    <Button
+        android:id="@+id/buttonList5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Элемент списка 5" />
+
+    <Button
+        android:id="@+id/buttonList6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Элемент списка 6" />
+</LinearLayout>

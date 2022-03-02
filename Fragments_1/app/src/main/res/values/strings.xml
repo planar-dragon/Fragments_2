@@ -1,20 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Вход в приложение</string>
     <string name="login_Text">Вход по почте и паролю</string>
     <string name="input_Email_Address">Введите адрес почты</string>
     <string name="input_Password">Введите пароль</string>
     <string name="input">Вход</string>
+    <string name="greetings_Text">Вход %1$s</string>
     <string name="toast">Вход </string>
     <string name="toast_login">Вход не выполнен, входить не куда!</string>
     <string name="chekbox_Exemple">Принятие соглашение</string>
     <string name="enter_text">Ведите текст</string>
-    <string name="greetings_Text">Вход %1$s</string>
-    <string name="phone_Dialing">Набор номера телефона</string>
-    <string name="phone_Number_Verification">Проверка корректности введённого номера</string>
-    <string name="phone_number_input">Введите номер телефона</string>
-    <string name="anr" translatable="false">ANR</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="anr">ANR</string>
 
 </resources>

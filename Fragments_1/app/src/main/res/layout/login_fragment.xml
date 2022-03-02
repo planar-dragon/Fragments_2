@@ -11,7 +11,6 @@
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/original_sunlight"
         app:layout_constraintDimensionRatio="w,30:5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-        android:background="@color/color_basic"
+        android:background="@color/design_default_color_primary"
         android:gravity="start|center_vertical"
         android:paddingStart="55dp"
         android:text="@string/login_Text"
@@ -70,7 +69,7 @@
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
         android:text="@string/chekbox_Exemple"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/loginButton"
         app:layout_constraintEnd_toStartOf="@+id/loginButton"
         app:layout_constraintHorizontal_bias="0.5"
@@ -80,41 +79,19 @@
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
         android:enabled="true"
         android:gravity="center_horizontal|center_vertical"
         android:text="@string/input"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/containerProgressBar"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/chekboxExemple"
         app:layout_constraintTop_toBottomOf="@+id/textPassword"
         app:layout_constraintVertical_bias="0.6" />
-
-    <Button
-        android:id="@+id/anrButton"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginBottom="3dp"
-        android:text="@string/anr"
-        app:layout_constraintBottom_toTopOf="@+id/containerProgressBar"
-        app:layout_constraintEnd_toStartOf="@+id/buttonDeeplink"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/chekboxExemple" />
-
-    <TextView
-        android:id="@+id/errorForm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/loginButton"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/textPassword" />
 
     <LinearLayout
         android:id="@+id/containerProgressBar"
@@ -190,14 +167,26 @@
         app:layout_constraintGuide_end="16dp" />
 
     <Button
-        android:id="@+id/buttonDeeplink"
+        android:id="@+id/anrButton"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:text="deeplink"
-        app:layout_constraintBaseline_toBaselineOf="@+id/anrButton"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:text="@string/anr"
+        app:layout_constraintBottom_toTopOf="@+id/containerProgressBar"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toEndOf="@+id/anrButton" />
+        app:layout_constraintStart_toStartOf="@+id/guideline1"
+        app:layout_constraintTop_toBottomOf="@+id/chekboxExemple"
+        app:layout_constraintVertical_bias="0.0" />
 
+    <TextView
+        android:id="@+id/errorForm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/loginButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="@+id/guideline1"
+        app:layout_constraintTop_toBottomOf="@+id/textPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,75 +1,66 @@
 package com.skillbox.Fragments_1_18_10
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.skillbox.Fragments_1_18_10.databinding.LoginFragmentBinding
 
-class LoginFragment : Fragment(R.layout.login_fragment) {
+class LoginFragment() : Fragment(R.layout.login_fragment) {
 
-    lateinit var bindingLoginFragment: LoginFragmentBinding
+    private lateinit var loginFragmentBinding: LoginFragmentBinding
 
-    var stateEmailPassword: FormState? = FormState(false, "Пароль и логин не введены")
+    private val binding get() = loginFragmentBinding
 
+    private var stateEmailPassword: FormState? = FormState(false, "Пароль и логин не введены")
+
+
+
+    companion object {
+
+        fun newLoginFragment(text: String): LoginFragment {
+//            val fragment = LoginFragment()
+//            val args = Bundle().apply {
+//                putString(Constants.KEY_TEXT_LOGIN, text)
+//            }
+//            fragment.arguments = args
+//            return fragment
+            return LoginFragment().withArguments {
+                putString(Constants.KEY_TEXT_LOGIN, text)
+            }
+        }
+    }
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val bindingLoginFragment = LoginFragmentBinding.inflate(inflater)
-        Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: onCreateView")
-
-        return bindingLoginFragment.root
-
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: onAttach")
+        loginFragmentBinding = LoginFragmentBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: onViewCreated")
-
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: onActivityCreated")
-
-        bindingLoginFragment.loginButton.setOnClickListener() {
-
-//            val textEmailAddress = bindingLoginFragment.textEmailAddress.text.toString()
-//
-//            startActivity(MainActivitySecond.getIntent(this, textEmailAddress))
-            val viewProgressBar: View =
-                layoutInflater.inflate(
-                    R.layout.activity_main,
-                    bindingLoginFragment.containerProgressBar,
-                    false
-                )
-
-            login()
-            bindingLoginFragment.containerProgressBar.addView(viewProgressBar)
-            bindingLoginFragment.containerProgressBar.removeView(viewProgressBar)
-            validation(stateEmailPassword!!.message)
-//            finish()
-            childFragmentManager.beginTransaction()
-                .replace(R.id.fragmentView, MainFragment.newMainFragment()).commit()
-
+        loginFragmentBinding.anrButton.setOnClickListener {
+            Thread.sleep(10000)
         }
 
-// создаем переменную TextWatcher для ввода логина и пароля, в которой идет проверка заполнения
+        loginFragmentBinding.loginButton.setOnClickListener {
+
+            val viewProgressBar: View =
+                layoutInflater.inflate(R.layout.activity_main, loginFragmentBinding.containerProgressBar, false)
+// Прописываем когда запускается контейнер с Progress Bar
+            login()
+            loginFragmentBinding.containerProgressBar.addView(viewProgressBar)
+            loginFragmentBinding.containerProgressBar.removeView(viewProgressBar)
+            validation(stateEmailPassword!!.message)
+        }
+
         val loginEmailPassword = object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
@@ -80,152 +71,86 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
             }
         }
 // Слушатели ввода логина и пароля
-        bindingLoginFragment.textEmailAddress.addTextChangedListener(loginEmailPassword)
+        loginFragmentBinding.textEmailAddress.addTextChangedListener(loginEmailPassword)
 
-        bindingLoginFragment.textPassword.addTextChangedListener(loginEmailPassword)
+        loginFragmentBinding.textPassword.addTextChangedListener(loginEmailPassword)
 
 // Cлушатель Checkbox, запускающий функцию проверку заполнения полей логина и пароля.
 
-        bindingLoginFragment.chekboxExemple.setOnCheckedChangeListener() { checkboxView, isChecked ->
+        loginFragmentBinding.chekboxExemple.setOnCheckedChangeListener { checkboxView, isChecked ->
             verificationEmailPasswordChekbox()
-//            hideSoftKeyboard()
 
+
+        }
+    }
+    // не знаю как сохранить состояние
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+
+        if (savedInstanceState != null) {
+            savedInstanceState.putParcelable(Constants.KEY_EMAIL_PASS, stateEmailPassword)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        loginFragmentBinding = null!!
+    }
+
+
+// Функция проверки заполнения полей логина и пароля.
+
+    private fun verificationEmailPasswordChekbox() {
+        when {
+            loginFragmentBinding.textEmailAddress.text.isEmpty() && loginFragmentBinding.textPassword.text.isEmpty()
+            -> {
+                stateEmailPassword = FormState(false, "Не введен логин и пароль!")
+            }
+
+            loginFragmentBinding.textEmailAddress.text.isEmpty()
+            -> {
+                stateEmailPassword = FormState(false, "Не введен логин!")
+            }
+
+            loginFragmentBinding.textPassword.text.isEmpty()
+            -> {
+                stateEmailPassword = FormState(false, "Не введен пароль!")
+            }
+
+            !loginFragmentBinding.chekboxExemple.isChecked
+            -> {
+                stateEmailPassword = FormState(false, "Примите соглашение!")
+            }
+
+            loginFragmentBinding.textEmailAddress.text.isNotEmpty() && loginFragmentBinding.textPassword.text.isNotEmpty() && loginFragmentBinding.chekboxExemple.isChecked
+            -> {
+                stateEmailPassword = FormState(true, "Валидация прошла успешно!")
+            }
         }
     }
 
 // Функция запуска кнопки "Вход", поля логин и пароль, Checkbox деактивируются.
 
-    fun login() {
-        bindingLoginFragment.textEmailAddress.isEnabled = false
-        bindingLoginFragment.textPassword.isEnabled = false
-        bindingLoginFragment.chekboxExemple.isEnabled = false
-        bindingLoginFragment.operationProgress.visibility = View.VISIBLE
-        Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: Вход в никуда совершен!")
+    private fun login() {
+        loginFragmentBinding.textEmailAddress.isEnabled = false
+        loginFragmentBinding.textPassword.isEnabled = false
+        loginFragmentBinding.chekboxExemple.isEnabled = false
+        loginFragmentBinding.operationProgress.visibility = View.VISIBLE
+
+// оповещение об активации кнопки
+// что происходит = метод создания оповещения. показать текст(контекст, ресурс текста, время показа), отобразить оповещение.
 
         Handler().postDelayed({
-            bindingLoginFragment.textEmailAddress.isEnabled = true
-            bindingLoginFragment.textPassword.isEnabled = true
-            bindingLoginFragment.chekboxExemple.isEnabled = true
-            bindingLoginFragment.operationProgress.visibility = View.INVISIBLE
+            loginFragmentBinding.textEmailAddress.isEnabled = true
+            loginFragmentBinding.textPassword.isEnabled = true
+            loginFragmentBinding.chekboxExemple.isEnabled = true
+            loginFragmentBinding.operationProgress.visibility = View.INVISIBLE
 
         }, 2000)
     }
 
-    fun verificationEmailPasswordChekbox() {
-        when {
-            bindingLoginFragment.textEmailAddress.text.isEmpty() && bindingLoginFragment.textPassword.text.isEmpty()
-            -> {
-                stateEmailPassword = FormState(false, "Не введен логин и пароль!")
-                Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: Не введен логин и пароль!")
-            }
-
-            bindingLoginFragment.textEmailAddress.text.isEmpty()
-            -> {
-                stateEmailPassword = FormState(false, "Не введен логин!")
-                Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: Не введен логин!")
-            }
-
-            bindingLoginFragment.textPassword.text.isEmpty()
-            -> {
-                stateEmailPassword = FormState(false, "Не введен пароль!")
-                Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: Не введен пароль!")
-            }
-
-            !bindingLoginFragment.chekboxExemple.isChecked
-            -> {
-                stateEmailPassword = FormState(false, "Примите соглашение!")
-                Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: Примите соглашение!")
-            }
-
-            bindingLoginFragment.textEmailAddress.text.isNotEmpty() && bindingLoginFragment.textPassword.text.isNotEmpty() && bindingLoginFragment.chekboxExemple.isChecked
-            -> {
-                stateEmailPassword = FormState(true, "Валидация прошла успешно!")
-                Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: Валидация прошла успешно!")
-            }
-        }
-    }
-
     // функция вывода текста в View
-    fun validation(mess: String) {
-        bindingLoginFragment.errorForm.text = mess
-    }
-
-    // функция убирает клавиатуру когда нажат чекбокс
-//    fun Activity.hideSoftKeyboard() {
-//        currentFocus?.let {
-//            val inputMethodManager =
-//                ContextCompat.getSystemService(this, InputMethodManager::class.java)!!
-//            inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
-//        }
-//    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: onStart, ${hashCode()}")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: onResume, ${hashCode()}")
-    }
-
-    // функция сохранения состояния
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        // внутри( константа для сохранения, переменная которую нужно сохранить)
-        outState.putParcelable(Constants.KEY_EMAIL_PASS, stateEmailPassword)
-        Log.d(
-            tag,
-            "MAIN_INFO Жизненный цикл Fragment: Сохранение состояния переменных: valid = ${stateEmailPassword!!.valid}, message = ${stateEmailPassword!!.message}"
-        )
-    }
-
-//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-//        super.onRestoreInstanceState(savedInstanceState)
-//        stateEmailPassword =
-//            savedInstanceState.getParcelable(Constants.KEY_EMAIL_PASS) ?: error("Ошибка")
-//        Log.d(
-//            tag,
-//            "MAIN_INFO Жизненный цикл Fragment: Востановление состояния переменных: valid = ${stateEmailPassword!!.valid}, message = ${stateEmailPassword!!.message}"
-//        )
-//    }
-//
-//    override fun onTopResumedActivityChanged(isTopResumedActivity: Boolean) {
-//        super.onTopResumedActivityChanged(isTopResumedActivity)
-//        Log.d(
-//            tag,
-//            "MAIN_INFO Жизненный цикл Fragment: onTopResumedActivityChanged $isTopResumedActivity, ${hashCode()}"
-//        )
-//    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: onPause, ${hashCode()}")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: onStop, ${hashCode()}")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: onDestroy, ${hashCode()}")
-    }
-
-    override fun onDestroyView() {
-        Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: onDestroyView ${hashCode()}")
-        super.onDestroyView()
-    }
-
-    override fun onDetach() {
-        Log.d(tag, "MAIN_INFO Жизненный цикл Fragment: onDetach ${hashCode()}")
-        super.onDetach()
-    }
-
-    companion object {
-
-        @JvmStatic
-        fun newLoginFragment() = LoginFragment()
+    private fun validation(mess: String) {
+        loginFragmentBinding.errorForm.text = mess
     }
 }
