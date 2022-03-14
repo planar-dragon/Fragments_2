@@ -59,10 +59,10 @@ class ListFragment( ) : Fragment(R.layout.list_fragment) {
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        listFragmentBinding = null
-    }
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        listFragmentBinding = null
+//    }
 
     // метод обработки нажатия по кнопкам списка листа
     private fun onButtonClick(buttonText: String){

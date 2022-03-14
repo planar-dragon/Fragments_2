@@ -29,11 +29,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.containerFragment,LoginFragment.newLoginFragment(text = "Key_Text_Login"))
+            .addToBackStack(null)
             .commit()
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.containerFragment,ListFragment.newListFragment(text = "Key_Text_List"))
-            .commit()
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.containerFragment,ListFragment.newListFragment(text = "Key_Text_List"))
+//            .commit()
 
     }
 }
