@@ -1,17 +1,8 @@
 package com.skillbox.Fragments_1_18_10
 
-import android.app.Activity
+import android.graphics.Insets.add
 import android.os.Bundle
-import android.os.Handler
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.viewbinding.BuildConfig
 import com.skillbox.Fragments_1_18_10.databinding.ActivityMainBinding
 
 
@@ -24,6 +15,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         mainActivityBinding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(mainActivityBinding.root)
+
+
 //проверяем заполнен ли контейнер
         val alreadyHasFragment = supportFragmentManager.findFragmentById(R.id.containerFragment) != null
 
@@ -37,6 +30,18 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 //            .commit()
 
     }
+
+//    fun onClick(v: View) {
+//        fTrans = supportFragmentManager.beginTransaction()
+//        when (v.id) {
+//            R.id.btnAdd -> fTrans.add(R.id.frgmCont, frag1)
+//            R.id.btnRemove -> fTrans.remove(frag1)
+//            R.id.btnReplace -> fTrans.replace(R.id.frgmCont, frag2)
+//            else -> {}
+//        }
+//        if (chbStack.isChecked()) fTrans.addToBackStack(null)
+//        fTrans.commit()
+//    }
 }
 
 
