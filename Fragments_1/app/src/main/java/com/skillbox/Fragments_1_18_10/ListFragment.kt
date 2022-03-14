@@ -1,6 +1,8 @@
 package com.skillbox.Fragments_1_18_10
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,21 +13,20 @@ import com.skillbox.Fragments_1_18_10.databinding.ListFragmentBinding
 
 class ListFragment( ) : Fragment(R.layout.list_fragment) {
 
-    private var listFragmentBinding: ListFragmentBinding? = null
-
-    private val binding get() = listFragmentBinding!!
+    private lateinit var listFragmentBinding: ListFragmentBinding
 
     private val itemSelectListener: ItemSelectListener?
-        get() = activity?.let {it as? ItemSelectListener}
 
-//    val listFragment: Fragment = MainFragment()
-//    val parentActivity: Activity? = activity
+        get() = parentFragment.let {it as? ItemSelectListener}
+
+
+    val LOG_TAG:String = "myLogs"
 
     companion object{
 
         fun newListFragment(text: String): ListFragment{
             return ListFragment().withArguments {
-                putString(Constants.KEY_TEXT_LIST, text)
+                putString(Constants.KEY_LIST, text)
             }
         }
     }
@@ -35,10 +36,8 @@ class ListFragment( ) : Fragment(R.layout.list_fragment) {
         savedInstanceState: Bundle?
     ): View? {
         listFragmentBinding = ListFragmentBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return listFragmentBinding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,22 +53,46 @@ class ListFragment( ) : Fragment(R.layout.list_fragment) {
             .forEach {button ->
                 button.setOnClickListener {
                     onButtonClick(button.text.toString())
+//                    parentFragmentManager.beginTransaction()
+//                        .addToBackStack(null)
+//                        .replace(R.id.parent_container, DetailFragment.newDetailFragment(button.text.toString()))
+//                        .commit()
                 }
             }
+        Log.d(LOG_TAG, "ListFragment: onViewCreated")
 
     }
-
-//    override fun onDestroyView() {
-//        super.onDestroyView()
-//        listFragmentBinding = null
-//    }
 
     // метод обработки нажатия по кнопкам списка листа
     private fun onButtonClick(buttonText: String){
+        Log.d(LOG_TAG, "ListFragment: Нажата кнопка $buttonText")
         itemSelectListener?.onItemSelected(buttonText)
+        Log.d(LOG_TAG, "ListFragment: Открывает DetailFragment для $buttonText")
 
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.d(LOG_TAG, "ListFragment: onAttach")
+    }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d(LOG_TAG, "ListFragment: onCreate")
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d(LOG_TAG, "ListFragment: onDestroyView")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(LOG_TAG, "ListFragment: onDestroy")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d(LOG_TAG, "ListFragment: onDetach")
+    }
 }

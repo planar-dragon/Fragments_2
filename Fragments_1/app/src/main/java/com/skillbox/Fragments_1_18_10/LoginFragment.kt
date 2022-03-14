@@ -1,6 +1,5 @@
 package com.skillbox.Fragments_1_18_10
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -16,51 +15,62 @@ class LoginFragment() : Fragment(R.layout.login_fragment) {
 
     private lateinit var loginFragmentBinding: LoginFragmentBinding
 
-    private val binding get() = loginFragmentBinding
-
     private var stateEmailPassword: FormState? = FormState(false, "Пароль и логин не введены")
 
-
+    val LOG_TAG: String = "myLogs"
 
     companion object {
 
         fun newLoginFragment(text: String): LoginFragment {
 //            val fragment = LoginFragment()
 //            val args = Bundle().apply {
-//                putString(Constants.KEY_TEXT_LOGIN, text)
+//                putString(Constants.KEY_LOGIN, text)
 //            }
 //            fragment.arguments = args
 //            return fragment
             return LoginFragment().withArguments {
-                putString(Constants.KEY_TEXT_LOGIN, text)
+                putString(Constants.KEY_LOGIN, text)
             }
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         loginFragmentBinding = LoginFragmentBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        Log.d(LOG_TAG, "LoginFragment: onCreateView")
+        return loginFragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loginFragmentBinding.anrButton.setOnClickListener {
-            Thread.sleep(10000)
-        }
-
         loginFragmentBinding.loginButton.setOnClickListener {
-
-            val viewProgressBar: View =
-                layoutInflater.inflate(R.layout.activity_main, loginFragmentBinding.containerProgressBar, false)
-// Прописываем когда запускается контейнер с Progress Bar
+            Log.d(LOG_TAG, "LoginFragment: Кнопка Вход активирована")
+            val viewProgressBar: View = layoutInflater.inflate(
+                R.layout.activity_main, loginFragmentBinding.containerProgressBar,
+                false
+            )
+            // Прописываем когда запускается контейнер с Progress Bar
             login()
             loginFragmentBinding.containerProgressBar.addView(viewProgressBar)
             loginFragmentBinding.containerProgressBar.removeView(viewProgressBar)
             validation(stateEmailPassword!!.message)
+            // Проверка заполнены ли поля
+            val correctEmailPasswordChekbox: Boolean =
+                loginFragmentBinding.textEmailAddress.text.isNotEmpty() && loginFragmentBinding.textPassword.text.isNotEmpty() && loginFragmentBinding.chekboxExemple.isChecked
+
+            if (correctEmailPasswordChekbox == true) {
+                Log.d(LOG_TAG, "MainFragment: Загружается в containerFragment!")
+                parentFragmentManager.beginTransaction()
+                    .replace(
+                        R.id.containerFragment,
+                        MainFragment.newMainFragment(text = "Key_Main_Fragment")
+                    )
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
 
         val loginEmailPassword = object : TextWatcher {
@@ -81,24 +91,14 @@ class LoginFragment() : Fragment(R.layout.login_fragment) {
 
         loginFragmentBinding.chekboxExemple.setOnCheckedChangeListener { checkboxView, isChecked ->
             verificationEmailPasswordChekbox()
-
-
         }
     }
+
     // не знаю как сохранить состояние
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-
-        if (savedInstanceState != null) {
-            savedInstanceState.putParcelable(Constants.KEY_EMAIL_PASS, stateEmailPassword)
-        }
+        savedInstanceState?.putParcelable(Constants.KEY_EMAIL_PASS, stateEmailPassword)
     }
-
-//    override fun onDestroyView() {
-//        super.onDestroyView()
-//        loginFragmentBinding = null!!
-//    }
-
 
 // Функция проверки заполнения полей логина и пароля.
 
@@ -107,26 +107,32 @@ class LoginFragment() : Fragment(R.layout.login_fragment) {
             loginFragmentBinding.textEmailAddress.text.isEmpty() && loginFragmentBinding.textPassword.text.isEmpty()
             -> {
                 stateEmailPassword = FormState(false, "Не введен логин и пароль!")
+                Log.d(LOG_TAG, "LoginFragment: Не введен логин и пароль!")
             }
 
             loginFragmentBinding.textEmailAddress.text.isEmpty()
             -> {
                 stateEmailPassword = FormState(false, "Не введен логин!")
+                Log.d(LOG_TAG, "LoginFragment: Не введен логин!")
             }
 
             loginFragmentBinding.textPassword.text.isEmpty()
             -> {
                 stateEmailPassword = FormState(false, "Не введен пароль!")
+                Log.d(LOG_TAG, "LoginFragment: Не введен пароль!")
             }
 
             !loginFragmentBinding.chekboxExemple.isChecked
             -> {
                 stateEmailPassword = FormState(false, "Примите соглашение!")
+                Log.d(LOG_TAG, "LoginFragment: Примите соглашение!")
             }
 
             loginFragmentBinding.textEmailAddress.text.isNotEmpty() && loginFragmentBinding.textPassword.text.isNotEmpty() && loginFragmentBinding.chekboxExemple.isChecked
             -> {
                 stateEmailPassword = FormState(true, "Валидация прошла успешно!")
+                Log.d(LOG_TAG, "LoginFragment: Валидация прошла успешно!")
+
             }
         }
     }
