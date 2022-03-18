@@ -62,13 +62,15 @@ class LoginFragment() : Fragment(R.layout.login_fragment) {
                 loginFragmentBinding.textEmailAddress.text.isNotEmpty() && loginFragmentBinding.textPassword.text.isNotEmpty() && loginFragmentBinding.chekboxExemple.isChecked
 
             if (correctEmailPasswordChekbox == true) {
-                Log.d(LOG_TAG, "MainFragment: Загружается в containerFragment!")
+                Log.d(LOG_TAG, "MainFragment: beginTransaction")
                 parentFragmentManager.beginTransaction()
+                    // чтоб после верефикации и логина не возвращаться к фрагменту логина в бакстак не добавляем
+//                    .addToBackStack(null)
+                    .setCustomAnimations(R.animator.slide_in_left, R.animator.slide_in_right)
                     .replace(
                         R.id.containerFragment,
                         MainFragment.newMainFragment(text = "Key_Main_Fragment")
                     )
-                    .addToBackStack(null)
                     .commit()
             }
         }

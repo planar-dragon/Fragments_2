@@ -1,14 +1,12 @@
 package com.skillbox.Fragments_1_18_10
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.skillbox.Fragments_1_18_10.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(R.layout.activity_main)
-//    , ItemSelectListener
-{
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private lateinit var mainActivityBinding: ActivityMainBinding
 
@@ -24,6 +22,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main)
         mainActivityBinding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(mainActivityBinding.root)
+
 //проверяем есть ли сохраненное состояние если его нет, запускается фрагмент логин
 
         if (savedInstanceState == null) {
@@ -34,12 +33,37 @@ class MainActivity : AppCompatActivity(R.layout.activity_main)
                 .commit()
         } else {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.containerFragment, LoginFragment.newLoginFragment(text = Constants.KEY_LOGIN))
+                .replace(
+                    R.id.containerFragment,
+                    LoginFragment.newLoginFragment(Constants.KEY_LOGIN)
+                )
                 .commit()
         }
+        Log.d(LOG_TAG, "LoginFragment: beginTransaction")
+
+    }
+
+    override fun onBackPressed() {
+        val count = currentFragment.childFragmentManager.backStackEntryCount
+
+        if (count == 0) {
+            super.onBackPressed()
+            Log.d(LOG_TAG, "Сохранений в BackStack $count - выход из приложения")
+        } else {
+            currentFragment.childFragmentManager.popBackStack()
+            Log.d(LOG_TAG, "Сохранено в BackStack $count - возврат к предыдущему фрагменту")
+
+        }
+
+
+
     }
 
 }
+
+
+
+
 
 
 
