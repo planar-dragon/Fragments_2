@@ -6,6 +6,5 @@ object Constants {
     const val KEY_LIST = "Key_List"
     const val KEY_MAIN_FRAGMENT = "Key_Main_Fragment"
     const val KEY_DETAL = "Key_Detal"
-    const val STATE_LIST: String = "1"
 
 }
