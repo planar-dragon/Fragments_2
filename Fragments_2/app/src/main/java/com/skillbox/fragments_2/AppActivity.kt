@@ -3,8 +3,10 @@ package com.skillbox.fragments_2
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import com.github.javafaker.Faker
+import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.skillbox.fragments_2.databinding.ActivityAppBinding
@@ -24,28 +26,28 @@ class AppActivity : AppCompatActivity(R.layout.activity_app) {
 
     // Переменная которая будет хранить данные экранов которые надо отобразить в списке onBoarding
 
-    private val screens: List<OnBoardingScreen> = listOf(
-        OnBoardingScreen(
+    private val screens: List<ArticleData> = listOf(
+        ArticleData(
             textRes = R.string.onboarding_text_1,
             bgColorRes = R.color.one,
             drawbleRes = R.drawable.one
         ),
-        OnBoardingScreen(
+        ArticleData(
             textRes = R.string.onboarding_text_2,
             bgColorRes = R.color.two,
             drawbleRes = R.drawable.two
         ),
-        OnBoardingScreen(
+        ArticleData(
             textRes = R.string.onboarding_text_3,
             bgColorRes = R.color.three,
             drawbleRes = R.drawable.three
         ),
-        OnBoardingScreen(
+        ArticleData(
             textRes = R.string.onboarding_text_4,
             bgColorRes = R.color.four,
             drawbleRes = R.drawable.four
         ),
-        OnBoardingScreen(
+        ArticleData(
             textRes = R.string.onboarding_text_5,
             bgColorRes = R.color.five,
             drawbleRes = R.drawable.five
