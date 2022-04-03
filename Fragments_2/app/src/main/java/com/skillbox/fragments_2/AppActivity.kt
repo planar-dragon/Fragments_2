@@ -3,6 +3,7 @@ package com.skillbox.fragments_2
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import com.github.javafaker.Faker
@@ -11,22 +12,24 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.skillbox.fragments_2.databinding.ActivityAppBinding
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+import kotlin.math.abs
 import kotlin.random.Random
+import kotlin.random.nextInt
 
 class AppActivity : AppCompatActivity(R.layout.activity_app) {
 
     private lateinit var binding: ActivityAppBinding
 
-    lateinit var viewPager: ViewPager2
-    lateinit var tabLayout: TabLayout
+//    lateinit var viewPager: ViewPager2
+//    lateinit var tabLayout: TabLayout
 
     private val faker = Faker()
 
     val LOG_TAG: String = "myLogs"
 
-    // Переменная которая будет хранить данные экранов которые надо отобразить в списке onBoarding
+    // Переменная которая будет хранить данные экранов которые надо отобразить в списке ArticleData
 
-    private val screens: List<ArticleData> = listOf(
+    private val articles: List<ArticleData> = listOf(
         ArticleData(
             textRes = R.string.onboarding_text_1,
             bgColorRes = R.color.one,
@@ -62,14 +65,14 @@ class AppActivity : AppCompatActivity(R.layout.activity_app) {
         val viewPager = binding.viewPager
         val tabLayout = binding.tabLayout
 
-        // Преобразуем список обьектов хранящихся в дата классе OnBoardingScreen во фрагменты через адаптер
+        // Преобразуем список обьектов хранящихся в дата классе ArticleData во фрагменты через адаптер
 
-        val adapter = OnBoardingAdapter(screens, this)
+        val adapter = ArticleAdapter(articles, this)
 
         viewPager.adapter = adapter
         // Свяжем tabLayout и viewPager, через класс TabLayoutMediator
 
-        // Внутрь передаем tabLayout, viewPager и конфигурацию, для конфигурации вуладки по ее позиции.
+        // Внутрь передаем tabLayout, viewPager и конфигурацию, для конфигурации вкладки по ее позиции.
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = faker.superhero().name()
 //                " ${
@@ -102,13 +105,44 @@ class AppActivity : AppCompatActivity(R.layout.activity_app) {
             }
         })
 
+        binding.viewPager.setPageTransformer(object : ViewPager2.PageTransformer {
+            override fun transformPage(page: View, position: Float) {
+
+//                page.translationX = -position*page.width
+//                page.pivotX = 0f
+//                page.pivotY = (page.width.toFloat()/2)
+                page.cameraDistance = 20000F
+
+                when {
+                    // страница невидима когда розиции страниц < -1 и > 1
+                    position < -1 || position > 1 -> {
+                        // alpha - показатель видимости
+                        page.alpha = 0f
+                    }
+
+                    // трансформация для страниц слева
+                    // при приближении страници к нулевой позиции, она будет становиться видимой
+                    position <= 0 -> {
+                        page.alpha = 1f
+                        page.pivotX = page.width.toFloat()
+                        page.rotationY = 90 * abs(position)
+                    }
+                    // трансформация для страниц справа
+                    position <= 1 -> {
+                        page.alpha = 1f
+                        page.pivotX = 0f
+                        page.rotationY = -90 * abs(position)
+                    }
+                }
+            }
+        })
     }
 
     // Функция генерации бейджей
     fun generateBadge() {
 
         // Рандомный индекс из числа доступных
-        val indexRandom = Random.nextInt(screens.indices)
+        val indexRandom = Random.nextInt(articles.indices)
 //        val indexRandom = Random.nextInt(0..(screens.size-1))
         Log.d(LOG_TAG, "Добавили 1 в Tab ${indexRandom + 1}")
 

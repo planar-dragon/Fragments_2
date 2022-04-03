@@ -8,4 +8,6 @@
     <string name="onboarding_text_4">Iron-man</string>
     <string name="onboarding_text_5">Spider-man</string>
     <string name="button_text">Сгенерировать событие</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
