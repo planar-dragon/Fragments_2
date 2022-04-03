@@ -53,8 +53,8 @@ class ArticleFragment: Fragment(R.layout.fragment_article) {
 //        super.onViewCreated(view, savedInstanceState)
 //        // Поместим ресурсы в разметку
 //        requireView().setBackgroundResource(requireArguments().getInt(Constants.KEY_COLOR))
-//        onBoardingFragmentBinding.textView.setText(requireArguments().getInt(Constants.KEY_TEXT))
-//        onBoardingFragmentBinding.imageView.setImageResource(requireArguments().getInt(Constants.KEY_DRAWBLE))
+//        articleFragmentBinding.textView.setText(requireArguments().getInt(Constants.KEY_TEXT))
+//        articleFragmentBinding.imageView.setImageResource(requireArguments().getInt(Constants.KEY_DRAWBLE))
 //    }
 
     override fun onDestroyView() {
