@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Fragments_2</string>
+
+    // Строки для задания
+    <string name="onboarding_text_1">Deadpool</string>
+    <string name="onboarding_text_2">Batman</string>
+    <string name="onboarding_text_3">Venome</string>
+    <string name="onboarding_text_4">Iron-man</string>
+    <string name="onboarding_text_5">Spider-man</string>
+    <string name="button_text">Сгенерировать событие</string>
+</resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    tools:background="@sample/colors"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_marginTop="100dp"
+        android:id="@+id/imageView"
+        android:scaleType="centerCrop"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        tools:src="@tools:sample/backgrounds/scenic"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        tools:text="@tools:sample/full_names"/>
+
+    <Button
+        android:id="@+id/buttonGenerate"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_text" />
+
+    <!--    <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator-->
+    <!--        android:id="@+id/wormDotsIndicator"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:dotsColor="@color/white"-->
+    <!--        app:dotsStrokeColor="@color/white"-->
+    <!--        app:dotsCornerRadius="8dp"-->
+    <!--        app:dotsSize="16dp"-->
+    <!--        app:dotsSpacing="4dp"-->
+    <!--        app:dotsStrokeWidth="2dp"-->
+    <!--        android:layout_marginTop="100dp"/>-->
+
+</LinearLayout>
