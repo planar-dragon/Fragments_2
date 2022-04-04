@@ -8,7 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 class ArticleAdapter(
     // свойство содержащее в себе список
     private val articles: List<ArticleData>,
-    activity: FragmentActivity
+    activity: ViewPagerFragment
 ): FragmentStateAdapter(activity) {
 
     // Определяет сколько элементов может быть - колличество страниц

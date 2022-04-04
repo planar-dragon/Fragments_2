@@ -17,7 +17,7 @@ class ArticleFragment: Fragment(R.layout.fragment_article) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("viewPager","OnBoardingFragment: onCreate =")
+        Log.d("viewPager","ArticleFragment: onCreate =")
 
     }
 
@@ -35,7 +35,7 @@ class ArticleFragment: Fragment(R.layout.fragment_article) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         articleFragmentBinding.buttonGenerate.setOnClickListener{
-            (activity as AppActivity).generateBadge()
+            (activity as AppActivity).collbackGenerateBadge()
         }
 
 
@@ -59,7 +59,7 @@ class ArticleFragment: Fragment(R.layout.fragment_article) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d("viewPager","OnBoardingFragment: onDestroy = ")
+        Log.d("viewPager","ArticleFragment: onDestroy = ")
     }
 
     // Новая инстанция фрагмента, принимающая на вход три аргумента
