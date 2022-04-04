@@ -9,6 +9,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.skillbox.fragments_2.databinding.FragmentArticleBinding
 
 class ArticleFragment: Fragment(R.layout.fragment_article) {
@@ -35,7 +36,7 @@ class ArticleFragment: Fragment(R.layout.fragment_article) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         articleFragmentBinding.buttonGenerate.setOnClickListener{
-            (activity as AppActivity).generateBadge()
+            ViewPagerFragment().generateBadge()
         }
 
 
@@ -59,7 +60,7 @@ class ArticleFragment: Fragment(R.layout.fragment_article) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d("viewPager","OnBoardingFragment: onDestroy = ")
+        Log.d("viewPager","ArticleFragment: onDestroy = ")
     }
 
     // Новая инстанция фрагмента, принимающая на вход три аргумента
