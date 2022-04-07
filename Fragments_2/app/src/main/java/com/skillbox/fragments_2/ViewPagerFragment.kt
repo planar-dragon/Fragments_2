@@ -111,11 +111,6 @@ class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectLis
 
         val newArticles = articles.filter { it.tags in filteredArticleTags }.toList()
 
-        val articlesFiltred = ArrayList<String>()
-            filteredArticleTags.forEach { filteredArticleTags -> articlesFiltred.add(tags[filteredArticleTags])
-            }
-
-
 
             articles.filter { it.tags in filteredArticleTags }.toList()
         articles = newArticles
