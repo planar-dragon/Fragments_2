@@ -106,13 +106,11 @@ class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectLis
     }
 
     // Функция для обновления ViewPagerFragment по переданным тегам
-    override fun onTagSelected(filteredArticleTags: ArrayList<String>): ArrayList<Types> {
+    override fun onTagSelected(filteredArticleTags: ArrayList<String>) {
         // Отфильтрованный список статей
 
         val newArticles = articles.filter { it.tags in filteredArticleTags }.toList()
 
-
-            articles.filter { it.tags in filteredArticleTags }.toList()
         articles = newArticles
             createVewPager()
     }
