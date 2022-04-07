@@ -11,13 +11,13 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.skillbox.fragments_2.databinding.FragmentArticleBinding
 
-class ArticleFragment: Fragment(R.layout.fragment_article) {
+class ArticleFragment : Fragment(R.layout.fragment_article) {
 
     private lateinit var articleFragmentBinding: FragmentArticleBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("viewPager","ArticleFragment: onCreate =")
+        Log.d("viewPager", "ArticleFragment: onCreate =")
 
     }
 
@@ -34,12 +34,13 @@ class ArticleFragment: Fragment(R.layout.fragment_article) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        articleFragmentBinding.buttonGenerate.setOnClickListener{
+        articleFragmentBinding.buttonGenerate.setOnClickListener {
             (activity as AppActivity).collbackGenerateBadge()
         }
 
 
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         // Поместим ресурсы в разметку
@@ -59,7 +60,7 @@ class ArticleFragment: Fragment(R.layout.fragment_article) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d("viewPager","ArticleFragment: onDestroy = ")
+        Log.d("viewPager", "ArticleFragment: onDestroy = ")
     }
 
     // Новая инстанция фрагмента, принимающая на вход три аргумента
@@ -68,12 +69,13 @@ class ArticleFragment: Fragment(R.layout.fragment_article) {
             // Анотации нужны, чтоб можно было передавать правильный ресурс
             @StringRes textRes: Int,
             @ColorRes bgColorRes: Int,
-            @DrawableRes drawbleRes: Int
+            @DrawableRes drawbleRes: Int,
+            tags: List<ArticleTag>
         ): ArticleFragment {
             return ArticleFragment().withArguments {
                 putInt(Constants.KEY_TEXT, textRes)
                 putInt(Constants.KEY_COLOR, bgColorRes)
-                putInt(Constants.KEY_DRAWBLE, drawbleRes)
+                putParcelableArrayList(Constants.KEY_ARTICLE_TAGS, tags as ArrayList<ArticleTag>)
             }
         }
 

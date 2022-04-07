@@ -14,6 +14,7 @@ import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.skillbox.fragments_2.databinding.FragmentViewPagerBinding
+import java.sql.Types
 import kotlin.math.abs
 import kotlin.random.Random
 import kotlin.random.nextInt
@@ -105,11 +106,19 @@ class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectLis
     }
 
     // Функция для обновления ViewPagerFragment по переданным тегам
-    override fun onTagSelected(filteredArticleTags: ArrayList<String>) {
+    override fun onTagSelected(filteredArticleTags: ArrayList<String>): ArrayList<Types> {
         // Отфильтрованный список статей
-        val articlesFiltred =
+
+        val newArticles = articles.filter { it.tags in filteredArticleTags }.toList()
+
+        val articlesFiltred = ArrayList<String>()
+            filteredArticleTags.forEach { filteredArticleTags -> articlesFiltred.add(tags[filteredArticleTags])
+            }
+
+
+
             articles.filter { it.tags in filteredArticleTags }.toList()
-        articles = articlesFiltred
+        articles = newArticles
             createVewPager()
     }
 
