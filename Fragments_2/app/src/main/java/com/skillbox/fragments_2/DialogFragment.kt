@@ -3,6 +3,7 @@ package com.skillbox.fragments_2
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,14 +24,54 @@ class DialogFragment : DialogFragment() {
     private val color: Int
         get() = requireArguments().getInt(ARG_COLOR)
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        AlertDialog.Builder(requireActivity())
-            .setTitle("Заголовок")
-            .setMessage("Сообщение")
-            .setPositiveButton("Применить", {_,_->})
-            .setNegativeButton("Отмена", {_,_->})
-            .create()
+    val LOG_TAG: String = "myLogs"
 
+    // Свойство нулябельного интерфейса с геттером для упрощения обращения к интерфейсу
+    private val tagSelectListener: TagSelectListener?
+        // При обращении к переменной передает содержимое в метеринский фрагмент
+        get() = parentFragment.let { it as? TagSelectListener }
+
+    // Создадим пустой список для отфильтрованных индексов тегов
+    private val filteredArticleTags: ArrayList<String> = arrayListOf()
+
+    // Переменная со всеми выбрранными тегами
+    val checkedTags: BooleanArray = booleanArrayOf(true, true, true, true)
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
+        // Создадим список тегов из энум класса ArticleTag
+        val articleTag = ArticleTag.values().map { it.name }.toTypedArray()
+
+        return android.app.AlertDialog.Builder(requireActivity())
+            .setTitle("Выберите теги статей")
+            // добавим в диалог мультивыбор для фильтрации тегов статей
+            .setMultiChoiceItems(articleTag, checkedTags) { _, which, isChecked ->
+                checkedTags[which] = isChecked
+            }
+            .setPositiveButton("Применить фильтрацию") { _, _ ->
+                // Цикл для сбора выбраных тегов
+                for (tag in articleTag.indices) {
+                    // Переменная куда сохраняется индекс тега если он Checked
+                    val checked = checkedTags[tag]
+                    // Если тег выбран он добавляется в список отфильтрованных индексов тегов
+                    if (checked) {
+                        filteredArticleTags.add(articleTag[tag])
+                    }
+                }
+
+                onButtonApplyFiltering(filteredArticleTags)
+
+            }
+            .setNegativeButton("Отмена", { _, _ -> })
+            .create()
+    }
+
+    // Функция для передачи отфильтрованного списка тегов
+    private fun onButtonApplyFiltering(filteredArticleTags: ArrayList<String>) {
+        Log.d(LOG_TAG, "Отфильтрованы теги: - ${filteredArticleTags}")
+        // Обращение к метеринскому фрагменту через функцию интерфейса, в которую передаем список тегов
+        tagSelectListener?.onTagSelected(filteredArticleTags)
+    }
 
 
 
@@ -46,22 +87,22 @@ class DialogFragment : DialogFragment() {
 //        val checkboxes = colorComponents
 //            .map { it > 0 && savedInstanceState == null }
 //            .toBooleanArray()
+//
+//        return AlertDialog.Builder(requireContext())
+//            .setTitle("Выберите теги")
+//            .setMultiChoiceItems(colorItems, checkboxes) { dialog, _, _ ->
+//                // NEW:
+//                val checkedPositions = (dialog as AlertDialog).listView.checkedItemPositions
+//                val color = Color.rgb(
+//                    booleanToColorComponent(checkedPositions[0]),
+//                    booleanToColorComponent(checkedPositions[1]),
+//                    booleanToColorComponent(checkedPositions[2])
+//                )
+//                parentFragmentManager.setFragmentResult(REQUEST_KEY, bundleOf(KEY_COLOR_RESPONSE to color))
+//            }
+//            .setPositiveButton(R.string.action_close, null)
+//            .create()
 
-        return AlertDialog.Builder(requireContext())
-            .setTitle("Выберите теги")
-            .setMultiChoiceItems(colorItems, checkboxes) { dialog, _, _ ->
-                // NEW:
-                val checkedPositions = (dialog as android.app.AlertDialog).listView.checkedItemPositions
-                val color = Color.rgb(
-                    booleanToColorComponent(checkedPositions[0]),
-                    booleanToColorComponent(checkedPositions[1]),
-                    booleanToColorComponent(checkedPositions[2])
-                )
-                parentFragmentManager.setFragmentResult(REQUEST_KEY, bundleOf(KEY_COLOR_RESPONSE to color))
-            }
-            .setPositiveButton(R.string.action_close, null)
-            .create()
-    }
 
     private fun booleanToColorComponent(value: Boolean): Int {
         return if (value) 255 else 0

@@ -10,5 +10,5 @@ data class ArticleData(
     @StringRes val textRes: Int,
     @ColorRes val bgColorRes: Int,
     @DrawableRes val drawbleRes: Int,
-//    val tags: List<ArticleTag>
+    val tags: List<ArticleTag>
 )

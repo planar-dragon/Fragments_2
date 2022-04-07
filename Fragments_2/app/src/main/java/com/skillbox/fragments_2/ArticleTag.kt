@@ -5,7 +5,6 @@ package com.skillbox.fragments_2
 enum class ArticleTag {
     strength,
     speed,
-    endurance,
     intelligence,
     equipment
 }

@@ -2,9 +2,11 @@ package com.skillbox.fragments_2
 
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toolbar
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.github.javafaker.Faker
@@ -16,65 +18,55 @@ import kotlin.math.abs
 import kotlin.random.Random
 import kotlin.random.nextInt
 
-class ViewPagerFragment() : Fragment (R.layout.fragment_view_pager) {
+class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectListener {
 
     private lateinit var viewPagerFragmentBinding: FragmentViewPagerBinding
 
     lateinit var viewPager: ViewPager2
     lateinit var tabLayout: TabLayout
     lateinit var toolbar: Toolbar
+    lateinit var dialog: AlertDialog
 
     private val faker = Faker()
 
     val LOG_TAG: String = "myLogs"
 
-    // Переменная которая будет хранить данные экранов которые надо отобразить в списке ArticleData
-
-    private val articles: List<ArticleData> = listOf(
+    // Переменная которая будет хранить данные экранов которые надо отобразить
+    private var articles: List<ArticleData> = listOf(
         ArticleData(
             textRes = R.string.onboarding_text_1,
             bgColorRes = R.color.one,
-            drawbleRes = R.drawable.one
+            drawbleRes = R.drawable.one,
+            tags = listOf(ArticleTag.equipment)
         ),
         ArticleData(
             textRes = R.string.onboarding_text_2,
             bgColorRes = R.color.two,
-            drawbleRes = R.drawable.two
+            drawbleRes = R.drawable.two,
+            tags = listOf(ArticleTag.equipment, ArticleTag.intelligence)
         ),
         ArticleData(
             textRes = R.string.onboarding_text_3,
             bgColorRes = R.color.three,
-            drawbleRes = R.drawable.three
+            drawbleRes = R.drawable.three,
+            tags = listOf(ArticleTag.strength, ArticleTag.speed)
         ),
         ArticleData(
             textRes = R.string.onboarding_text_4,
             bgColorRes = R.color.four,
-            drawbleRes = R.drawable.four
+            drawbleRes = R.drawable.four,
+            tags = listOf(ArticleTag.strength, ArticleTag.speed, ArticleTag.equipment)
         ),
         ArticleData(
             textRes = R.string.onboarding_text_5,
             bgColorRes = R.color.five,
-            drawbleRes = R.drawable.five
+            drawbleRes = R.drawable.five,
+            tags = listOf(ArticleTag.equipment, ArticleTag.speed, ArticleTag.intelligence)
         )
     )
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    // Прикрепляем меню к тулбару
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu, menu)
-    }
-
-    // Слушатель для кнопки фильтрации открывающей диалог фрагмент
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.filtration -> showDialogFragment()
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
+    // Преобразуем список обьектов хранящихся в дата классе ArticleData во фрагменты через адаптер
+    private var adapter = ArticleAdapter(articles, this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -83,33 +75,53 @@ class ViewPagerFragment() : Fragment (R.layout.fragment_view_pager) {
     ): View? {
         viewPagerFragmentBinding = FragmentViewPagerBinding.inflate(inflater, container, false)
 //        Log.d(LOG_TAG, "MainFragment: onCreateView")
+
+        createVewPager()
+
         return viewPagerFragmentBinding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewPager = viewPagerFragmentBinding.viewPager
-        val tabLayout = viewPagerFragmentBinding.tabLayout
+        // Прикрепляем меню к тулбару
 
         val toolbar = viewPagerFragmentBinding.toolbarView
 
-        val activity = AppCompatActivity()
+//         меню в тулбар добавил в разметке fragment_view_pager, там же добавил цвет кнопки
+//         toolbar.inflateMenu(R.menu.menu)
 
-        //подключаем тулбар
+        // Слушатель для кнопки фильтрации открывающей диалог фрагмент
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.filtration -> {
+                    showDialogFragment()
+                    true
+                }
+                else -> false
+            }
+        }
+    }
 
-        val setupToolbar = setHasOptionsMenu(true)
+    // Функция для обновления ViewPagerFragment по переданным тегам
+    override fun onTagSelected(filteredArticleTags: ArrayList<String>) {
+        // Отфильтрованный список статей
+        val articlesFiltred =
+            articles.filter { it.tags in filteredArticleTags }.toList()
+        articles = articlesFiltred
+            createVewPager()
+    }
 
-        //ставим кнопку на тулбар
-//        val toolbarBack = supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    // Функции viewPager
 
-        // Преобразуем список обьектов хранящихся в дата классе ArticleData во фрагменты через адаптер
-
-        val adapter = ArticleAdapter(articles, this)
+    fun createVewPager() {
+        val viewPager = viewPagerFragmentBinding.viewPager
+        val tabLayout = viewPagerFragmentBinding.tabLayout
 
         viewPager.adapter = adapter
-        // Свяжем tabLayout и viewPager, через класс TabLayoutMediator
 
+        // Свяжем tabLayout и viewPager, через класс TabLayoutMediator
         // Внутрь передаем tabLayout, viewPager и конфигурацию, для конфигурации вкладки по ее позиции.
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = faker.superhero().name()
@@ -134,15 +146,17 @@ class ViewPagerFragment() : Fragment (R.layout.fragment_view_pager) {
         viewPager2.adapter = adapter
         wormDotsIndicator.setViewPager2(viewPager2)
 
-
         // Колбак отслеживающий перелистывание
-        viewPagerFragmentBinding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        viewPagerFragmentBinding.viewPager.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 Log.d(LOG_TAG, "Открыта страница ${position + 1}")
             }
+
         })
 
+        // Установим трансформацию перелистывания
         viewPagerFragmentBinding.viewPager.setPageTransformer(object : ViewPager2.PageTransformer {
             override fun transformPage(page: View, position: Float) {
 
@@ -209,27 +223,19 @@ class ViewPagerFragment() : Fragment (R.layout.fragment_view_pager) {
     }
 
     // Фунция для показа диалога фильтрации
-
-    private fun showDialogFragment(): Boolean {
+    private fun showDialogFragment() {
         DialogFragment()
             .show(childFragmentManager, "Dialog Fragment")
     }
 
-// Функция для скрытия диалогового окна
-
+    // Функция для скрытия диалогового окна
     fun hideDialogFragment() {
         childFragmentManager.findFragmentByTag("Dialog Fragment")
             ?.let { it as? DialogFragment }
             ?.dismiss()
     }
 
-    //// Функция для сохранения тегов диалога
-//    private fun setupMultipleChoiceDialogFragmentListener() {
-//        DialogFragment.setupListener(parentFragmentManager, this) {
-//            this.color = it
-//            updateUi()
-//        }
-//    }
+
 
     companion object {
 
@@ -247,6 +253,8 @@ class ViewPagerFragment() : Fragment (R.layout.fragment_view_pager) {
 
 
     }
+
+
 //fun showMultiChoiceDialog() {
 //    val tegItems = ArticleTag()
 //}

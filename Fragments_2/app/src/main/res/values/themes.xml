@@ -13,6 +13,16 @@
         <item name="windowNoTitle">true</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="toolbarStyle">@color/teal_200</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <!--     Style ViewPagerFragmentToolBar. -->
+    <style name="ToolbarStyle">
+        // текст тулбара из ночной темы
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        // стиль применяемый к всплывающему меню
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+
     </style>
 </resources>
