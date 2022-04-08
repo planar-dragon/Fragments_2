@@ -52,10 +52,6 @@ class AppActivity : AppCompatActivity(R.layout.app_activity) {
 
         }
 
-    fun collbackGenerateBadge() {
-        ViewPagerFragment().generateBadge()
-    }
-
 //
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
