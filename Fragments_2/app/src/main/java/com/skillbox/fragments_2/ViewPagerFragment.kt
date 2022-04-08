@@ -67,7 +67,7 @@ class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectLis
     )
 
     // Преобразуем список обьектов хранящихся в дата классе ArticleData во фрагменты через адаптер
-    private var adapter = ArticleAdapter(articles, this)
+    lateinit var adapter: ArticleAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,7 +76,9 @@ class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectLis
     ): View? {
         viewPagerFragmentBinding = FragmentViewPagerBinding.inflate(inflater, container, false)
 //        Log.d(LOG_TAG, "MainFragment: onCreateView")
+        // Преобразуем список обьектов хранящихся в дата классе ArticleData во фрагменты через адаптер
 
+        adapter = ArticleAdapter(articles, this)
         createVewPager()
 
         return viewPagerFragmentBinding.root
@@ -107,7 +109,7 @@ class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectLis
 
     // Функция для обновления ViewPagerFragment по переданным тегам
     override fun onTagSelected(filteredArticleTags: ArrayList<String>) {
-        // Отфильтрованный список статей
+//         Отфильтрованный список статей
 
         val newArticles = articles.filter { it.tags in filteredArticleTags }.toList()
 

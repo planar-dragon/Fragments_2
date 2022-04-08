@@ -35,7 +35,7 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         articleFragmentBinding.buttonGenerate.setOnClickListener {
-            (activity as AppActivity).collbackGenerateBadge()
+            (parentFragment as ViewPagerFragment).generateBadge()
         }
 
 
@@ -75,6 +75,7 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
             return ArticleFragment().withArguments {
                 putInt(Constants.KEY_TEXT, textRes)
                 putInt(Constants.KEY_COLOR, bgColorRes)
+                putInt(Constants.KEY_DRAWBLE, drawbleRes)
                 putParcelableArrayList(Constants.KEY_ARTICLE_TAGS, tags as ArrayList<ArticleTag>)
             }
         }
