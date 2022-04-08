@@ -1,6 +1,7 @@
 package com.skillbox.fragments_2
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -76,9 +77,14 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
                 putInt(Constants.KEY_TEXT, textRes)
                 putInt(Constants.KEY_COLOR, bgColorRes)
                 putInt(Constants.KEY_DRAWBLE, drawbleRes)
-                putParcelableArrayList(Constants.KEY_ARTICLE_TAGS, tags as ArrayList<ArticleTag>)
+                putParcelableArrayList(Constants.KEY_ARTICLE_TAGS, tags)
             }
         }
+
+        private fun putParcelableArrayList(keyArticleTags: String, tags: List<ArticleTag>) {
+
+        }
+
 
 //            val fragment = MainFragment()
 //            val args = Bundle().apply {

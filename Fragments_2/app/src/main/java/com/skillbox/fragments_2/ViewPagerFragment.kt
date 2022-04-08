@@ -14,7 +14,6 @@ import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.skillbox.fragments_2.databinding.FragmentViewPagerBinding
-import java.sql.Types
 import kotlin.math.abs
 import kotlin.random.Random
 import kotlin.random.nextInt
@@ -76,10 +75,8 @@ class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectLis
     ): View? {
         viewPagerFragmentBinding = FragmentViewPagerBinding.inflate(inflater, container, false)
 //        Log.d(LOG_TAG, "MainFragment: onCreateView")
-        // Преобразуем список обьектов хранящихся в дата классе ArticleData во фрагменты через адаптер
 
-        adapter = ArticleAdapter(articles, this)
-        createVewPager()
+        createVewPager(articles)
 
         return viewPagerFragmentBinding.root
 
@@ -109,19 +106,64 @@ class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectLis
 
     // Функция для обновления ViewPagerFragment по переданным тегам
     override fun onTagSelected(filteredArticleTags: ArrayList<String>) {
-//         Отфильтрованный список статей
+//      Отфильтрованный список статей
+//      Проверяем содержит ли список articles элемент списка filteredArticleTags,
+//      если условие соблюдается элемент сохраняется в newArticles
+//        val filteredArticleTags: List<ArticleData> = filteredArticleTags.toList()
 
-        val newArticles = articles.filter { it.tags in filteredArticleTags }.toList()
+        Log.d(LOG_TAG, "Список статей для отрисовки viewPager до фильтрации ${articles}")
 
+// ??????????????????????????????????????????????????????????????
+// Тут я сравниваю свойство tags обьектов Дата Класса c списком <String>
+// фильтрования,чтоб получить список обьектов с заданным свойством.
+// Как список String превратить в список обьектов, чтоб отфильтровать несовпадения?
+
+// Не знаю как отфильтровать первичный список статей для viewPager
+        val newArticles =
+//            articles.filter {
+//            getString( it.tags in filteredArticleTags)
+//        }
+//
+//        deleteRepeated(articles , filteredArticleTags)
+//
+//
+            articles.filter { it.tags == filteredArticleTags }.toList()
+
+        Log.d(LOG_TAG, "Список статей для отрисовки viewPager после фильтрации ${newArticles}")
         articles = newArticles
-            createVewPager()
+
+        createVewPager(articles)
+
     }
+//    // Функция чтоб удалить несовпавшие теги
+//        fun deleteRepeated(
+//            articles: List<ArticleData>,
+//            filteredArticleTags: List<ArticleData>
+//        ): List<ArticleData> {
+//            return filteredArticleTags.filterNot { isTheSameID(it, articles) }
+//        }
+//
+//    fun isTheSameID(item: ArticleData, articles: List<ArticleData>): Boolean {
+//        articles.forEach {
+//            if (item.tags == it.tags){
+//                return true
+//            }
+//        }
+//        return false
+//    }
+
 
     // Функции viewPager
 
-    fun createVewPager() {
+    fun createVewPager(articles: List<ArticleData>) {
         val viewPager = viewPagerFragmentBinding.viewPager
         val tabLayout = viewPagerFragmentBinding.tabLayout
+
+        // Преобразуем список обьектов хранящихся в дата классе ArticleData во фрагменты через адаптер
+
+        Log.d(LOG_TAG, "Список статей для отрисовки viewPager $articles")
+
+        adapter = ArticleAdapter(articles, this)
 
         viewPager.adapter = adapter
 
@@ -225,11 +267,16 @@ class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectLis
             })
         }
     }
-
+// ???????????????????????????????????????????????????????????????
+// Не знаю как запустить диалог фрагмент с сохраненными аргументами
     // Фунция для показа диалога фильтрации
     private fun showDialogFragment() {
-        DialogFragment()
-            .show(childFragmentManager, "Dialog Fragment")
+        if (Constants.KEY_CHECKED_TAG != null) {
+            DialogFragment()
+                .show(childFragmentManager, "Dialog Fragment")
+        } else {
+            DialogFragment.newIntent(checkedTags = BooleanArray(Constants.KEY_CHECKED_TAG))
+        }
     }
 
     // Функция для скрытия диалогового окна
@@ -238,7 +285,6 @@ class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectLis
             ?.let { it as? DialogFragment }
             ?.dismiss()
     }
-
 
 
     companion object {

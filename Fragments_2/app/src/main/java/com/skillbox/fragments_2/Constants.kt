@@ -6,6 +6,9 @@ object Constants {
     const val KEY_DRAWBLE = "drawble"
     const val KEY_VIEW_PAGER_FRAGMENT = "view pager fragment"
     const val KEY_ARTICLE_TAGS = "article tags"
+    const val KEY_TAG = "key tag"
+    const val KEY_CHECKED_TAG = "key cheked tags"
+
 
 
 }
