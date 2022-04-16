@@ -6,7 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class ArticleAdapter(
     // свойство содержащее в себе список
-    private val articles: List<ArticleData>,
+    private var articles: List<ArticleData>,
     fragment: Fragment
 ): FragmentStateAdapter(fragment) {
 
@@ -29,4 +29,12 @@ class ArticleAdapter(
             tags = screen.tags
         )
     }
+//Помощь
+//    @SuppressLint("NotifyDataSetChanged")
+//    fun updateArticlesByList (newArticles: List<ArticleData>) {
+//        articles = newArticles
+//        notifyDataSetChanged()
+//    }
+//
+//    fun getItem(position: Int) = articles[position]
 }

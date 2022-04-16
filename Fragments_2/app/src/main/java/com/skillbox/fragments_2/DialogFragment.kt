@@ -16,7 +16,7 @@ class DialogFragment : DialogFragment() {
         get() = parentFragment.let { it as? TagSelectListener }
 
     // Создадим пустой список для отфильтрованных индексов тегов
-    private val filteredArticleTags: ArrayList<String> = arrayListOf()
+    private val checkedArticleTags: ArrayList<String> = arrayListOf()
 
     // Переменная со всеми выбрранными тегами
     var checkedTags: BooleanArray = booleanArrayOf(true, true, true, true)
@@ -39,11 +39,10 @@ class DialogFragment : DialogFragment() {
                     val checked = checkedTags[tag]
                     // Если тег выбран он добавляется в список отфильтрованных индексов тегов
                     if (checked) {
-                        filteredArticleTags.add(articleTag[tag])
+                        checkedArticleTags.add(articleTag[tag])
                     }
                 }
-
-                onButtonApplyFiltering(filteredArticleTags)
+                onButtonApplyFiltering(checkedTags)
 
 //////////???????????????????????????????????????????
 // тут неправильно не знаю как сохранять состояние выбранных тегов и загружать через аргумент в диалог фрагмент
@@ -52,25 +51,21 @@ class DialogFragment : DialogFragment() {
                 Log.d(LOG_TAG, " $checkedTags")
             }
             .setNegativeButton("Отмена", { _, _ -> })
-
             .create()
-
     }
 
-    val tagForDialog = ArticleTag.values().filter {
-        checkedTags[it.ordinal]
-    }.toMutableList()
+//    val tagForDialog = ArticleTag.values().filter {
+//        checkedTags[it.ordinal]
+//    }.toMutableList()
 
     // Функция для передачи отфильтрованного списка тегов
-    private fun onButtonApplyFiltering(filteredArticleTags: ArrayList<String>) {
-        Log.d(LOG_TAG, "Отфильтрованы теги: - ${filteredArticleTags}")
+    private fun onButtonApplyFiltering(checkedTags: BooleanArray) {
+//        Log.d(LOG_TAG, "Отфильтрованы теги: - ${filteredArticleTags}")
         // Обращение к метеринскому фрагменту через функцию интерфейса, в которую передаем список тегов
-        tagSelectListener?.onTagSelected(filteredArticleTags)
+        tagSelectListener?.onTagSelected(checkedTags)
     }
 
-
     companion object {
-
         fun newIntent(checkedTags: BooleanArray): DialogFragment {
 //            val fragment = MainFragment()
 //            val args = Bundle().apply {

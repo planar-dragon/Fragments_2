@@ -25,7 +25,7 @@ class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectLis
     lateinit var viewPager: ViewPager2
     lateinit var tabLayout: TabLayout
     lateinit var toolbar: Toolbar
-    lateinit var dialog: AlertDialog
+    lateinit var dialog: DialogFragment
 
     private val faker = Faker()
 
@@ -55,7 +55,7 @@ class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectLis
             textRes = R.string.onboarding_text_4,
             bgColorRes = R.color.four,
             drawbleRes = R.drawable.four,
-            tags = listOf(ArticleTag.strength, ArticleTag.speed, ArticleTag.equipment)
+            tags = listOf(ArticleTag.strength, ArticleTag.speed, ArticleTag.equipment, ArticleTag.intelligence)
         ),
         ArticleData(
             textRes = R.string.onboarding_text_5,
@@ -105,12 +105,18 @@ class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectLis
     }
 
     // Функция для обновления ViewPagerFragment по переданным тегам
-    override fun onTagSelected(filteredArticleTags: ArrayList<String>) {
+    override fun onTagSelected(checkedTags: BooleanArray) {
 //      Отфильтрованный список статей
 //      Проверяем содержит ли список articles элемент списка filteredArticleTags,
 //      если условие соблюдается элемент сохраняется в newArticles
 //        val filteredArticleTags: List<ArticleData> = filteredArticleTags.toList()
+        val filteredArticleTags: MutableList<ArticleTag> = emptyList<ArticleTag>().toMutableList()
 
+        ArticleTag.values().forEachIndexed { index, articleTag ->
+            if (checkedTags[index]) {
+                filteredArticleTags += articleTag
+            }
+        }
         Log.d(LOG_TAG, "Список статей для отрисовки viewPager до фильтрации ${articles}")
 
 // ??????????????????????????????????????????????????????????????
@@ -119,16 +125,11 @@ class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectLis
 // Как список String превратить в список обьектов, чтоб отфильтровать несовпадения?
 
 // Не знаю как отфильтровать первичный список статей для viewPager
-        val newArticles =
-//            articles.filter {
-//            getString( it.tags in filteredArticleTags)
-//        }
-//
-//        deleteRepeated(articles , filteredArticleTags)
-//
-//
-            articles.filter { it.tags == filteredArticleTags }.toList()
-
+        val newArticles = articles.filter { article ->
+            filteredArticleTags.any { articleTag ->
+                article.tags.contains(articleTag)
+            }
+        }
         Log.d(LOG_TAG, "Список статей для отрисовки viewPager после фильтрации ${newArticles}")
         articles = newArticles
 
