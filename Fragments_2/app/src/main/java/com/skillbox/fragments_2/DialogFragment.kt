@@ -28,12 +28,12 @@ class DialogFragment : DialogFragment() {
 //    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        if (savedInstanceState != null) {
+        checkedTags = if (savedInstanceState != null) {
             Log.d(LOG_TAG, "Выбраны теги сохраненные")
-            checkedTags = arguments?.getBooleanArray(Constants.KEY_CHECKED_TAG)!!
+            arguments?.getBooleanArray(Constants.KEY_CHECKED_TAG)!!
         } else {
             Log.d(LOG_TAG, "Выбраны все теги")
-            checkedTags = booleanArrayOf(true, true, true, true)
+            booleanArrayOf(true, true, true, true)
         }
         // Создадим список тегов из энум класса ArticleTag
         val articleTag = ArticleTag.values().map { it.name }.toTypedArray()
