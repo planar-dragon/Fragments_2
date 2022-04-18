@@ -30,6 +30,7 @@ class DialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
+
         // Создадим список тегов из энум класса ArticleTag
         val articleTag = ArticleTag.values().map { it.name }.toTypedArray()
 
@@ -54,6 +55,8 @@ class DialogFragment : DialogFragment() {
 //////////???????????????????????????????????????????
 // тут неправильно не знаю как сохранять состояние выбранных тегов и загружать через аргумент в диалог фрагмент
 //                checkedTags = savedInstanceState?.getBooleanArray(Constants.KEY_CHECKED_TAG)!!
+                val checkedTagsBundle = Bundle()
+                checkedTagsBundle.putBooleanArray(Constants.KEY_CHECKED_TAG, checkedTags)
 
                 Log.d(LOG_TAG, " $checkedTags")
             }
@@ -61,9 +64,17 @@ class DialogFragment : DialogFragment() {
             .create()
     }
 
-//    val tagForDialog = ArticleTag.values().filter {
-//        checkedTags[it.ordinal]
-//    }.toMutableList()
+    override fun onSaveInstanceState(savedInstanceState: Bundle) {
+        super.onSaveInstanceState(savedInstanceState)
+        savedInstanceState.putBooleanArray(Constants.KEY_CHECKED_TAG, checkedTags)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        if (savedInstanceState != null) {
+            checkedTags = savedInstanceState.getBooleanArray(Constants.KEY_CHECKED_TAG)!!
+        }
+    }
 
     // Функция для передачи отфильтрованного списка тегов
     private fun onButtonApplyFiltering(checkedTags: BooleanArray) {
