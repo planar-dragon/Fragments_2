@@ -32,38 +32,38 @@ class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectLis
     val LOG_TAG: String = "myLogs"
 
     // Переменная которая будет хранить данные экранов которые надо отобразить
-    private var articles: List<ArticleData> = listOf(
-        ArticleData(
-            textRes = R.string.onboarding_text_1,
-            bgColorRes = R.color.one,
-            drawbleRes = R.drawable.one,
-            tags = listOf(ArticleTag.equipment)
-        ),
-        ArticleData(
-            textRes = R.string.onboarding_text_2,
-            bgColorRes = R.color.two,
-            drawbleRes = R.drawable.two,
-            tags = listOf(ArticleTag.equipment, ArticleTag.intelligence)
-        ),
-        ArticleData(
-            textRes = R.string.onboarding_text_3,
-            bgColorRes = R.color.three,
-            drawbleRes = R.drawable.three,
-            tags = listOf(ArticleTag.strength, ArticleTag.speed)
-        ),
-        ArticleData(
-            textRes = R.string.onboarding_text_4,
-            bgColorRes = R.color.four,
-            drawbleRes = R.drawable.four,
-            tags = listOf(ArticleTag.strength, ArticleTag.speed, ArticleTag.equipment, ArticleTag.intelligence)
-        ),
-        ArticleData(
-            textRes = R.string.onboarding_text_5,
-            bgColorRes = R.color.five,
-            drawbleRes = R.drawable.five,
-            tags = listOf(ArticleTag.equipment, ArticleTag.speed, ArticleTag.intelligence)
-        )
-    )
+//    private var articles: List<ArticleData> = listOf(
+//        ArticleData(
+//            textRes = R.string.onboarding_text_1,
+//            bgColorRes = R.color.one,
+//            drawbleRes = R.drawable.one,
+//            tags = listOf(ArticleTag.equipment)
+//        ),
+//        ArticleData(
+//            textRes = R.string.onboarding_text_2,
+//            bgColorRes = R.color.two,
+//            drawbleRes = R.drawable.two,
+//            tags = listOf(ArticleTag.equipment, ArticleTag.intelligence)
+//        ),
+//        ArticleData(
+//            textRes = R.string.onboarding_text_3,
+//            bgColorRes = R.color.three,
+//            drawbleRes = R.drawable.three,
+//            tags = listOf(ArticleTag.strength, ArticleTag.speed)
+//        ),
+//        ArticleData(
+//            textRes = R.string.onboarding_text_4,
+//            bgColorRes = R.color.four,
+//            drawbleRes = R.drawable.four,
+//            tags = listOf(ArticleTag.strength, ArticleTag.speed, ArticleTag.equipment, ArticleTag.intelligence)
+//        ),
+//        ArticleData(
+//            textRes = R.string.onboarding_text_5,
+//            bgColorRes = R.color.five,
+//            drawbleRes = R.drawable.five,
+//            tags = listOf(ArticleTag.equipment, ArticleTag.speed, ArticleTag.intelligence)
+//        )
+//    )
 
     // Преобразуем список обьектов хранящихся в дата классе ArticleData во фрагменты через адаптер
     lateinit var adapter: ArticleAdapter
@@ -76,7 +76,7 @@ class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectLis
         viewPagerFragmentBinding = FragmentViewPagerBinding.inflate(inflater, container, false)
 //        Log.d(LOG_TAG, "MainFragment: onCreateView")
 
-        createVewPager(articles)
+        createVewPager(ArticleObject.articles)
 
         return viewPagerFragmentBinding.root
 
@@ -113,46 +113,25 @@ class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectLis
         val filteredArticleTags: MutableList<ArticleTag> = emptyList<ArticleTag>().toMutableList()
 
         ArticleTag.values().forEachIndexed { index, articleTag ->
+            //выбранный тег добавляем в список отфильтрованных тегов
             if (checkedTags[index]) {
                 filteredArticleTags += articleTag
             }
         }
-        Log.d(LOG_TAG, "Список статей для отрисовки viewPager до фильтрации ${articles}")
+        Log.d(LOG_TAG, "Список статей для отрисовки viewPager до фильтрации ${ArticleObject.articles}")
 
-// ??????????????????????????????????????????????????????????????
-// Тут я сравниваю свойство tags обьектов Дата Класса c списком <String>
-// фильтрования,чтоб получить список обьектов с заданным свойством.
-// Как список String превратить в список обьектов, чтоб отфильтровать несовпадения?
-
-// Не знаю как отфильтровать первичный список статей для viewPager
-        val newArticles = articles.filter { article ->
+// Первичный список статей фильтруем для viewPager
+        val newArticles = ArticleObject.articles.filter { article ->
             filteredArticleTags.any { articleTag ->
                 article.tags.contains(articleTag)
             }
         }
         Log.d(LOG_TAG, "Список статей для отрисовки viewPager после фильтрации ${newArticles}")
-        articles = newArticles
-
-        createVewPager(articles)
+//        articles = newArticles
+// запускаем функцию создания вьюпейджера с отфильтрованными тегами
+        createVewPager(newArticles)
 
     }
-//    // Функция чтоб удалить несовпавшие теги
-//        fun deleteRepeated(
-//            articles: List<ArticleData>,
-//            filteredArticleTags: List<ArticleData>
-//        ): List<ArticleData> {
-//            return filteredArticleTags.filterNot { isTheSameID(it, articles) }
-//        }
-//
-//    fun isTheSameID(item: ArticleData, articles: List<ArticleData>): Boolean {
-//        articles.forEach {
-//            if (item.tags == it.tags){
-//                return true
-//            }
-//        }
-//        return false
-//    }
-
 
     // Функции viewPager
 
@@ -241,7 +220,7 @@ class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectLis
     fun generateBadge() {
 
         // Рандомный индекс из числа доступных
-        val indexRandom = Random.nextInt(articles.indices)
+        val indexRandom = Random.nextInt(ArticleObject.articles.indices)
 //        val indexRandom = Random.nextInt(0..(screens.size-1))
         Log.d(LOG_TAG, "Добавили 1 в Tab ${indexRandom + 1}")
 
@@ -272,21 +251,14 @@ class ViewPagerFragment() : Fragment(R.layout.fragment_view_pager), TagSelectLis
 // Не знаю как запустить диалог фрагмент с сохраненными аргументами
     // Фунция для показа диалога фильтрации
     private fun showDialogFragment() {
-        if (Constants.KEY_CHECKED_TAG != null) {
-            DialogFragment()
-                .show(childFragmentManager, "Dialog Fragment")
-        } else {
-            DialogFragment.newIntent(checkedTags = BooleanArray(Constants.KEY_CHECKED_TAG))
-        }
+    if (Constants.KEY_CHECKED_TAG != null) {
+        DialogFragment()
+            .show(childFragmentManager, "Dialog Fragment")
+    } else {
+        DialogFragment.newIntent(checkedTags = BooleanArray(Constants.KEY_CHECKED_TAG))
     }
 
-    // Функция для скрытия диалогового окна
-    fun hideDialogFragment() {
-        childFragmentManager.findFragmentByTag("Dialog Fragment")
-            ?.let { it as? DialogFragment }
-            ?.dismiss()
     }
-
 
     companion object {
 

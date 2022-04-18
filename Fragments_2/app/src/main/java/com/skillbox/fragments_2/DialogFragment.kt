@@ -21,6 +21,13 @@ class DialogFragment : DialogFragment() {
     // Переменная со всеми выбрранными тегами
     var checkedTags: BooleanArray = booleanArrayOf(true, true, true, true)
 
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        checkedTags = arguments?.getSerializable(Constants.KEY_CHECKED_TAG) as BooleanArray
+//
+//    }
+
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         // Создадим список тегов из энум класса ArticleTag
@@ -34,14 +41,14 @@ class DialogFragment : DialogFragment() {
             }
             .setPositiveButton("Применить фильтрацию") { _, _ ->
                 // Цикл для сбора выбраных тегов
-                for (tag in articleTag.indices) {
-                    // Переменная куда сохраняется индекс тега если он Checked
-                    val checked = checkedTags[tag]
-                    // Если тег выбран он добавляется в список отфильтрованных индексов тегов
-                    if (checked) {
-                        checkedArticleTags.add(articleTag[tag])
-                    }
-                }
+//                for (tag in articleTag.indices) {
+//                    // Переменная куда сохраняется индекс тега если он Checked
+//                    val checked = checkedTags[tag]
+//                    // Если тег выбран он добавляется в список отфильтрованных индексов тегов
+//                    if (checked) {
+//                        checkedArticleTags.add(articleTag[tag])
+//                    }
+//                }
                 onButtonApplyFiltering(checkedTags)
 
 //////////???????????????????????????????????????????
@@ -67,12 +74,6 @@ class DialogFragment : DialogFragment() {
 
     companion object {
         fun newIntent(checkedTags: BooleanArray): DialogFragment {
-//            val fragment = MainFragment()
-//            val args = Bundle().apply {
-//                putString(Constants.KEY_MAIN_FRAGMENT, text)
-//            }
-//            fragment.arguments = args
-//            return fragment
             return DialogFragment().withArguments {
                 putBooleanArray(Constants.KEY_CHECKED_TAG, checkedTags)
             }
