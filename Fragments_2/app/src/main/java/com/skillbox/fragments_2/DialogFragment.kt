@@ -74,6 +74,12 @@ class DialogFragment : DialogFragment() {
 
     companion object {
         fun newIntent(checkedTags: BooleanArray): DialogFragment {
+            //            val fragment = MainFragment()
+//            val args = Bundle().apply {
+//                putString(Constants.KEY_MAIN_FRAGMENT, text)
+//            }
+//            fragment.arguments = args
+//            return fragment
             return DialogFragment().withArguments {
                 putBooleanArray(Constants.KEY_CHECKED_TAG, checkedTags)
             }
